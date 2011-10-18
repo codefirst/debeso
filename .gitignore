@@ -7,3 +7,4 @@ vendor/gems/*
 .sass-cache/*
 vendor/bundle
 .bundle
+config/setting.yml
