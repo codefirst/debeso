@@ -1,3 +1,5 @@
 %ul
   - @dirs.each do |dir|
     %li= dir
+- form_tag url_for(:codes, :create_repository), :method => 'post' do
+  = submit_tag 'create_repository(test)'
