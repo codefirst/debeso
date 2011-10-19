@@ -1,5 +1,18 @@
-%ul
-  - @dirs.each do |dir|
-    %li= dir
-- form_tag url_for(:codes, :create_repository), :method => 'post' do
-  = submit_tag 'create_repository(test)'
+%header
+  .container
+    .row
+      %h1 debeso
+    .row
+      %p.lead Share your code snippets easily.
+
+.container
+  .row.well
+    %ul
+      - @dirs.each do |dir|
+        %li= dir
+    - form_tag url_for(:codes, :create_repository), :method => 'post' do
+      = submit_tag 'create_repository(test)', {:class => 'btn primary'}
+
+.container
+  %footer Copyright (C) 2011 codefirst.org. All rights reserved.
+

@@ -1,0 +1,21 @@
+body {
+  margin-top: 40px;
+}
+
+h1 {
+  margin-bottom: 5px;
+}
+
+.logo img {
+  width: 90%;
+}
+
+p.lead {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+footer {
+  color: #666;
+  text-align: center;
+}
