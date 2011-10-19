@@ -21,7 +21,9 @@ footer {
 }
 
 .edit-text {
-    width: 400px;
-    height: 600px;
+  width: 100%;
+  height: 300px;
+  margin-bottom: 20px;
 }
+
 

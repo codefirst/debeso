@@ -1,5 +1,11 @@
-%a{:href => url_for(:codes, :index)} return
-- form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
-  %div
-    %div= text_area_tag('content', :value => @content, :class => 'edit-text')
-  %div= submit_tag 'save'
+.container
+  .well
+    - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
+      .row
+        .span15~ text_area_tag('content', :value => @content, :class => 'edit-text')
+      .row
+        .span15{:style => 'text-align:right'}= submit_tag 'save', {:class => 'btn primary'}
+    .row
+      .span15
+        %a{:href => url_for(:codes, :index)} Back to index
+
