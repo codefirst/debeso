@@ -35,7 +35,7 @@ Debeso.controllers :codes do
     file = dir + "/file.txt"
     
     puts file
-    open(file, "w") {|f| puts @content;f.write(@content)}
+    open(file, "w") {|f| f.write(@content)}
     git = Git.open(dir)
     git.commit_all("update")
     redirect url(:codes, :edit, :id => @id)
