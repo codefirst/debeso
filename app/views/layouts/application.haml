@@ -5,5 +5,17 @@
     = stylesheet_link_tag 'bootstrap.min', 'application'
     = yield_content :include
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'
-  %body
-    = yield
+
+%header
+  .container
+    .row
+      %h1 debeso
+    .row
+      %p.lead Share your code snippets easily.
+
+%body
+  .container
+    = yield  
+
+.container
+  %footer Copyright (C) 2011 codefirst.org. All rights reserved.
