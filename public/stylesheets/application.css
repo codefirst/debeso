@@ -19,3 +19,9 @@ footer {
   color: #666;
   text-align: center;
 }
+
+.edit-text {
+    width: 400px;
+    height: 600px;
+}
+

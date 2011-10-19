@@ -1,0 +1,5 @@
+%a{:href => url_for(:codes, :index)} return
+- form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
+  %div
+    %div= text_area_tag('content', :value => @content, :class => 'edit-text')
+  %div= submit_tag 'save'
