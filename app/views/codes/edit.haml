@@ -1,11 +1,22 @@
-.container
-  .well
+.container-fluid
+  .sidebar
+    %span.header Edit History
+    - form_tag url_for(:codes, :show_diff, :repid => @id), :method => 'get' do
+      %table
+        - @commits.each_with_index do |commit, index|
+          .row
+            .span0_5= (index == 0 ? "&nbsp" : radio_button_tag("before", :value => commit.sha))
+            .span0_5= (index == @commits.size - 1 ? "&nbsp" : radio_button_tag("after", :value => commit.sha))
+            .span2= commit.sha[0..9]
+      .row
+        .span3{:style => 'text-align:right'}= submit_tag 'diff', {:class => 'btn primary'}
+
+  .content
     - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
       .row
-        .span15~ text_area_tag('content', :value => @content, :class => 'edit-text')
+        .span10~ text_area_tag('content', :value => @content, :class => 'edit-text')
       .row
-        .span15{:style => 'text-align:right'}= submit_tag 'save', {:class => 'btn primary'}
+        .span10{:style => 'text-align:right'}= submit_tag 'save', {:class => 'btn primary'}
     .row
       .span15
         %a{:href => url_for(:codes, :index)} Back to index
-

@@ -1,0 +1,8 @@
+.container-fluid
+  .sidebar
+
+  .content
+    %pre= @diff.patch
+    .row
+      .span15
+        %a{:href => url_for(:codes, :edit, :id => @id)} Back to file

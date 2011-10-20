@@ -23,6 +23,9 @@ Debeso.controllers :codes do
 
   get :edit, :with => :id do
     @id = params[:id]
+    dir = Setting[:repository_root] + "/" + @id
+    git = Git.open(dir)
+    @commits = git.log
     file = Setting[:repository_root] + "/" + @id + "/file.txt"
     open(file) {|f| @content = f.read}
     render "codes/edit"
@@ -34,11 +37,22 @@ Debeso.controllers :codes do
     dir = Setting[:repository_root] + "/" + @id
     file = dir + "/file.txt"
     
-    puts file
     open(file, "w") {|f| f.write(@content)}
     git = Git.open(dir)
     git.commit_all("update")
     redirect url(:codes, :edit, :id => @id)
+  end
+
+  get :show_diff, :with => :repid do
+    @id = params[:repid]
+    @before_sha = params[:before]
+    @after_sha = params[:after]
+    dir = Setting[:repository_root] + "/" + @id
+    git = Git.open(dir)
+    before_commit = git.gcommit(@before_sha)
+    after_commit = git.gcommit(@after_sha)
+    @diff = git.diff(before_commit, after_commit)
+    render "codes/show_diff"
   end
 
 end

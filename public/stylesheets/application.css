@@ -21,9 +21,15 @@ footer {
 }
 
 .edit-text {
-  width: 100%;
+  width: 600px;
   height: 300px;
   margin-bottom: 20px;
 }
 
+.sidebar > .header {
+  color: gray;
+}
 
+.span0_5 {
+  width: 10px;
+}
