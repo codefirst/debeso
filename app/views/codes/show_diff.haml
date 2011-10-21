@@ -1,8 +1,14 @@
+= stylesheet_link_tag 'bootstrap.min', 'codemirror', 'diff', 'application'
+= javascript_include_tag 'codemirror', 'diff'
+
 .container-fluid
   .sidebar
 
   .content
-    %pre= @diff.patch
+    %textarea#code{:name => 'code'}= @diff.patch
     .row
       .span15
         %a{:href => url_for(:codes, :edit, :id => @id)} Back to file
+
+:javascript
+  var editor = CodeMirror.fromTextArea(document.getElementById("code"), {});
