@@ -8,3 +8,5 @@ vendor/gems/*
 vendor/bundle
 .bundle
 config/setting.yml
+db/*.db
+db/schema.rb

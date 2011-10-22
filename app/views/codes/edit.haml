@@ -12,6 +12,7 @@
         .span3{:style => 'text-align:right'}= submit_tag 'diff', {:class => 'btn primary'}
 
   .content
+    %h3= @snippet.file_name
     - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
       .row
         .span10~ text_area_tag('content', :value => @content, :class => 'edit-text')

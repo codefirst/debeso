@@ -3,9 +3,7 @@ require 'git'
 Debeso.controllers :codes do
 
   get :index, :map => '/' do
-    @dirs = Dir.entries(Setting[:repository_root])
-    @dirs.delete(".")
-    @dirs.delete("..")
+    @snippets = Snippet.all
     render 'codes/index'
   end
 
@@ -18,11 +16,14 @@ Debeso.controllers :codes do
     open(file, "w") {}
     git.add(file)
     git.commit("init")
+    snippet = Snippet.new(:hash => id, :file_name => params[:snippet_name])
+    snippet.save
     redirect url(:codes, :edit, :id => id)
   end
 
   get :edit, :with => :id do
     @id = params[:id]
+    @snippet = Snippet.where(:hash => @id).first
     dir = Setting[:repository_root] + "/" + @id
     git = Git.open(dir)
     @commits = git.log

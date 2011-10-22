@@ -13,4 +13,8 @@ $ bundle exec padrino start
 
 access to http://localhost:3000
 
+test
+-----------------------
+$ bundle exec padrino rake ar:migrate -e test
+$ bundle exec padrino rake spec
 

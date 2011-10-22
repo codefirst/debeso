@@ -1,7 +1,8 @@
 .row.well
   %ul
-    - @dirs.each do |dir|
+    - @snippets.each do |snippet|
       %li
-        %a{:href => url_for(:codes, :edit, :id => dir)}= dir
+        %a{:href => url_for(:codes, :edit, :id => snippet.hash)}= snippet.file_name
   - form_tag url_for(:codes, :create_repository), :method => 'post' do
+    = text_field_tag 'snippet_name'
     = submit_tag 'add file', :class => 'btn primary'
