@@ -6,6 +6,9 @@
     .sidebar.well
 
     .content.well
+      %h4
+        Revision
+        = @diff.to[0..9] + ':' + @diff.from[0..9]
       %textarea#code{:name => 'code'}= @diff.patch
       .row
         .span15
