@@ -59,4 +59,18 @@ Debeso.controllers :codes do
     render "codes/show_diff"
   end
 
+  post :search do
+    @search_key = params[:search_key]
+    dir = Setting[:repository_root]
+    git = Git.open(dir)
+    results = git.grep(@search_key)
+    ids = results.map do |key, value|
+      id = key.split(":")[1]
+      id.sub(File.extname(id), "")
+    end
+    snippets = Arel::Table.new(:snippets)
+    @snippets = snippets.where(snippets[:sha1_hash].in(ids)).project(snippets[:sha1_hash], snippets[:file_name]).to_a
+    render "codes/search"
+  end
+
 end

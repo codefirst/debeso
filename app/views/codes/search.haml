@@ -1,0 +1,8 @@
+.container
+  .well
+    .row
+      .span14
+        %ul
+          - @snippets.each do |snippet|
+            %li
+              %a{:href => url_for(:codes, :edit, :id => snippet.sha1_hash)}= snippet.file_name
