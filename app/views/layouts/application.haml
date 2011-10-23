@@ -9,13 +9,16 @@
 %header
   .container
     .row
-      %h1 debeso
-    .row
-      %p.lead Share your code snippets easily.
+      .span1
+        =image_tag 'x.png'
+      .span15
+        %h1
+          =link_to 'debeso', url_for(:codes, :index)
+        %p.lead Share your code snippets easily.
 
 %body
   .container
-    = yield  
+    = yield
 
 .container
   %footer Copyright (C) 2011 codefirst.org. All rights reserved.

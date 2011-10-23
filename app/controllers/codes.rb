@@ -9,6 +9,8 @@ Debeso.controllers :codes do
 
   post :create_repository do
     id = Digest::SHA1.hexdigest(Time.now.to_s)
+    # add "id_" to avoid implicit binary translation
+    id = "id_" + id
     dir = Setting[:repository_root] + "/" + id
     Dir::mkdir(dir)
     git = Git.init(dir)
@@ -16,15 +18,14 @@ Debeso.controllers :codes do
     open(file, "w") {}
     git.add(file)
     git.commit("init")
-    # add "id_" to avoid implicit binary translation
-    snippet = Snippet.new(:sha1_hash => "id_" + id, :file_name => params[:snippet_name])
+    snippet = Snippet.new(:sha1_hash => id, :file_name => params[:snippet_name])
     snippet.save
     redirect url(:codes, :edit, :id => id)
   end
 
   get :edit, :with => :id do
     @id = params[:id]
-    @snippet = Snippet.where(:sha1_hash => "id_" + @id).first
+    @snippet = Snippet.where(:sha1_hash => @id).first
     dir = Setting[:repository_root] + "/" + @id
     git = Git.open(dir)
     @commits = git.log
@@ -38,7 +39,7 @@ Debeso.controllers :codes do
     @content = params[:content]
     dir = Setting[:repository_root] + "/" + @id
     file = dir + "/file.txt"
-    
+
     open(file, "w") {|f| f.write(@content)}
     git = Git.open(dir)
     git.commit_all("update")
