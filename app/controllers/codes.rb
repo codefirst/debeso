@@ -63,7 +63,7 @@ Debeso.controllers :codes do
     @search_key = params[:search_key]
     dir = Setting[:repository_root]
     git = Git.open(dir)
-    results = git.grep(@search_key)
+    results = git.grep(@search_key, nil, :ignore_case => true)
     ids = results.map do |key, value|
       id = key.split(":")[1]
       id.sub(File.extname(id), "")
