@@ -34,7 +34,7 @@ footer {
 }
 
 .edit-text {
-  width: 600px;
+  width: 100%;
   height: 300px;
   margin-bottom: 20px;
 }
@@ -43,6 +43,17 @@ footer {
   color: gray;
 }
 
+.container-fluid>.sidebar{float:right;width:220px;}
+.container-fluid>.content{float:left;margin-left:0px;margin-right:20px;width:620px;}
+
+.CodeMirror {
+  background-color: #fff;
+  border: 1px solid #CCC;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
 .span0_5 {
   width: 10px;
 }
+
