@@ -9,7 +9,7 @@
       %h4
         Revision
         = @diff.to[0..9] + ':' + @diff.from[0..9]
-      %textarea#code{:name => 'code'}= @diff.patch
+      %textarea#code{:name => 'code'}= @diff.patch.split(/\r?\n/)[4..-1].join("\n")
       .row
         .span15
           %a{:href => url_for(:codes, :edit, :id => @id)} Back to file
