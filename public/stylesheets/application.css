@@ -1,31 +1,10 @@
 body {
   margin-top: 40px;
+  padding-top: 40px;
 }
 
 h1 {
   margin-bottom: 5px;
-}
-
-h1 a:hover {
-  color: #333;
-}
-h1 a:visited {
-  color: #333;
-}
-h1 a:active {
-  color: #333;
-}
-header img {
-  margin-top: 4px;
-}
-
-.logo img {
-  width: 90%;
-}
-
-p.lead {
-  color: #666;
-  margin-bottom: 30px;
 }
 
 footer {
@@ -41,6 +20,11 @@ footer {
 
 .sidebar > .header {
   color: gray;
+}
+
+.container>.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .container-fluid>.sidebar{float:right;width:220px;}

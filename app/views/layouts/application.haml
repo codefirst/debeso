@@ -6,15 +6,15 @@
     = yield_content :include
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'
 
-%header
-  .container
-    .row
-      .span1
-        =image_tag 'x.png'
-      .span15
-        %h1
-          =link_to 'debeso', url_for(:codes, :index)
-        %p.lead Share your code snippets easily.
+.topbar
+  .topbar-inner
+    .container
+      = link_to "debeso", url_for(:codes, :index), {:class => :brand}
+      %ul.nav
+        %li.active=link_to "Home", url_for(:codes, :index)
+        %li=link_to "About"#, url_for(:about, :index)
+      =form_for Snippet.new, '/codes/search', {:class => 'pull-right'} do |f| #url_for(:codes, :search)
+        =f.text_field :code, {:placeholder=>"Search"}
 
 %body
   = yield
