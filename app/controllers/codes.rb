@@ -7,18 +7,19 @@ Debeso.controllers :codes do
     render 'codes/index'
   end
 
-  post :create_repository do
+  post :create_snippet do
+    dir = Setting[:repository_root]
+    git = Git.init(dir)
+    snippet_name = params[:snippet_name]
     id = Digest::SHA1.hexdigest(Time.now.to_s)
     # add "id_" to avoid implicit binary translation
     id = "id_" + id
-    dir = Setting[:repository_root] + "/" + id
-    Dir::mkdir(dir)
-    git = Git.init(dir)
-    file = dir + "/file.txt"
-    open(file, "w") {}
-    git.add(file)
-    git.commit("init")
-    snippet = Snippet.new(:sha1_hash => id, :file_name => params[:snippet_name])
+    filename = "#{id}.txt"
+    fullpath = "#{dir}/#{filename}"
+    open(fullpath, "w") {}
+    git.add(fullpath)
+    git.commit("add #{snippet_name}")
+    snippet = Snippet.new(:sha1_hash => id, :file_name => snippet_name)
     snippet.save
     redirect url(:codes, :edit, :id => id)
   end
@@ -26,10 +27,10 @@ Debeso.controllers :codes do
   get :edit, :with => :id do
     @id = params[:id]
     @snippet = Snippet.where(:sha1_hash => @id).first
-    dir = Setting[:repository_root] + "/" + @id
+    dir = Setting[:repository_root]
     git = Git.open(dir)
-    @commits = git.log
-    file = Setting[:repository_root] + "/" + @id + "/file.txt"
+    @commits = git.log.object("#{@id}.txt")
+    file = "#{dir}/#{@id}.txt"
     open(file) {|f| @content = f.read}
     render "codes/edit"
   end
@@ -37,8 +38,8 @@ Debeso.controllers :codes do
   post :edit, :with => :id do
     @id = params[:id]
     @content = params[:content]
-    dir = Setting[:repository_root] + "/" + @id
-    file = dir + "/file.txt"
+    dir = Setting[:repository_root]
+    file = dir + "/#{@id}.txt"
 
     open(file, "w") {|f| f.write(@content)}
     git = Git.open(dir)
@@ -50,11 +51,11 @@ Debeso.controllers :codes do
     @id = params[:repid]
     @before_sha = params[:before]
     @after_sha = params[:after]
-    dir = Setting[:repository_root] + "/" + @id
+    dir = Setting[:repository_root]
     git = Git.open(dir)
     before_commit = git.gcommit(@before_sha)
     after_commit = git.gcommit(@after_sha)
-    @diff = git.diff(before_commit, after_commit)
+    @diff = git.diff(before_commit, after_commit).path("#{@id}.txt")
     render "codes/show_diff"
   end
 
