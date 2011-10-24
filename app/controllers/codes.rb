@@ -46,9 +46,16 @@ Debeso.controllers :codes do
     dir = Setting[:repository_root]
     file = dir + "/#{@id}.txt"
 
-    open(file, "w") {|f| f.write(@content)}
-    git = Git.open(dir)
-    git.commit_all("update")
+    if File.exists?(file)
+      old_content = ""
+      open(file) {|f| old_content = f.read}
+    end
+
+    unless old_content == @content
+      open(file, "w") {|f| f.write(@content)}
+      git = Git.open(dir)
+      git.commit_all("update")
+    end
     redirect url(:codes, :edit, :id => @id)
   end
 
