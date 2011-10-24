@@ -77,9 +77,15 @@ Debeso.controllers :codes do
     dir = Setting[:repository_root]
     git = Git.open(dir)
     results = git.grep(@search_key, nil, :ignore_case => true)
+    @search_result = {}
     ids = results.map do |key, value|
       id = key.split(":")[1]
-      id.sub(File.extname(id), "")
+      id = id.sub(File.extname(id), "")
+      value.each do |result|
+        @search_result[id] ||= {}
+        @search_result[id][result[0].to_s] = result[1].to_s
+      end
+      id
     end
     snippets = Arel::Table.new(:snippets)
     @snippets = snippets.where(snippets[:sha1_hash].in(ids).or(snippets[:file_name].matches("%#{@search_key}%")).or(snippets[:description].matches("%#{@search_key}%"))).project(snippets[:sha1_hash], snippets[:file_name]).to_a
