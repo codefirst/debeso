@@ -8,15 +8,16 @@
             .row
               .span0_5= (index == @commits.size - 1 ? "&nbsp" : radio_button_tag("after", :value => commit.sha, :checked => index == 0))
               .span0_5= (index == 0 ? "&nbsp" : radio_button_tag("before", :value => commit.sha, :checked => index == 1))
-              .span2= commit.sha[0..9]
+              .span1= commit.sha[0..7]
+              .span2= commit.date.strftime("%Y-%m-%d")
         .row
           .span3{:style => 'text-align:right'}= submit_tag 'diff', {:class => 'btn primary'}
 
     .content.well
       %h3= @snippet.file_name
       - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
-        .p
-          .span10~ text_field_tag('description', :value => @snippet.description)
+        .span10~ text_field_tag('description', :value => @snippet.description)
+        %p= @snippet.updated_at.strftime("%Y-%m-%d")
         .row
           .span10~ text_area_tag('content', :value => @content, :class => 'edit-text')
         .row

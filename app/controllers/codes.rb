@@ -19,7 +19,7 @@ Debeso.controllers :codes do
     open(fullpath, "w") {}
     git.add(fullpath)
     git.commit("add #{snippet_name}")
-    snippet = Snippet.new(:sha1_hash => id, :file_name => snippet_name)
+    snippet = Snippet.new(:sha1_hash => id, :file_name => snippet_name, :created_at => Time.now, :updated_at => Time.now)
     snippet.save
     redirect url(:codes, :edit, :id => id)
   end
@@ -41,6 +41,7 @@ Debeso.controllers :codes do
 
     @snippet = Snippet.where(:sha1_hash => @id).first
     @snippet.description = params[:description]
+    @snippet.updated_at = Time.now
     @snippet.save
 
     dir = Setting[:repository_root]

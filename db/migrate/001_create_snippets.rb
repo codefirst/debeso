@@ -4,6 +4,7 @@ class CreateSnippets < ActiveRecord::Migration
       t.string :sha1_hash
       t.string :file_name # "name" is used by ActiveRecord ...
       t.string :description
+      t.timestamps
     end
   end
 
