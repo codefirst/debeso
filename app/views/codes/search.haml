@@ -10,4 +10,5 @@
               %p
                 - unless @search_result[snippet.sha1_hash].nil?
                   - @search_result[snippet.sha1_hash].sort.each do |key, value|
-                    %div= "#{key}: #{value}"
+                    %div
+                      %span10~ "#{key}: #{value.gsub(' ', '&nbsp;')}"
