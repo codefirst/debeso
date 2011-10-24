@@ -83,7 +83,7 @@ Debeso.controllers :codes do
       id = id.sub(File.extname(id), "")
       value.each do |result|
         @search_result[id] ||= {}
-        @search_result[id][result[0].to_s] = result[1].to_s
+        @search_result[id][result[0]] = result[1]
       end
       id
     end

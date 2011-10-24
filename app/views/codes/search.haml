@@ -9,5 +9,5 @@
                 %a{:href => url_for(:codes, :edit, :id => snippet.sha1_hash)}= snippet.file_name
               %p
                 - unless @search_result[snippet.sha1_hash].nil?
-                  - @search_result[snippet.sha1_hash].each do |key, value|
+                  - @search_result[snippet.sha1_hash].sort.each do |key, value|
                     %div= "#{key}: #{value}"
