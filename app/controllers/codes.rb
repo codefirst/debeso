@@ -38,6 +38,11 @@ Debeso.controllers :codes do
   post :edit, :with => :id do
     @id = params[:id]
     @content = params[:content]
+
+    @snippet = Snippet.where(:sha1_hash => @id).first
+    @snippet.description = params[:description]
+    @snippet.save
+
     dir = Setting[:repository_root]
     file = dir + "/#{@id}.txt"
 

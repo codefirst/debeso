@@ -3,6 +3,7 @@ class CreateSnippets < ActiveRecord::Migration
     create_table :snippets do |t|
       t.string :sha1_hash
       t.string :file_name # "name" is used by ActiveRecord ...
+      t.string :description
     end
   end
 
