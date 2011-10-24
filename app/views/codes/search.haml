@@ -10,4 +10,4 @@
               %p
                 - unless @search_result[snippet.sha1_hash].nil?
                   - @search_result[snippet.sha1_hash].each do |key, value|
-                    %span= "#{key}: #{value}"
+                    %div= "#{key}: #{value}"
