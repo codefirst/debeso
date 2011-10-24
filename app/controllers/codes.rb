@@ -81,7 +81,7 @@ Debeso.controllers :codes do
       id.sub(File.extname(id), "")
     end
     snippets = Arel::Table.new(:snippets)
-    @snippets = snippets.where(snippets[:sha1_hash].in(ids).or(snippets[:file_name].matches("%#{@search_key}%"))).project(snippets[:sha1_hash], snippets[:file_name]).to_a
+    @snippets = snippets.where(snippets[:sha1_hash].in(ids).or(snippets[:file_name].matches("%#{@search_key}%")).or(snippets[:description].matches("%#{@search_key}%"))).project(snippets[:sha1_hash], snippets[:file_name]).to_a
     render "codes/search"
   end
 
