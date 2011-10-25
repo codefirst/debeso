@@ -14,12 +14,16 @@
           .span3{:style => 'text-align:right'}= submit_tag 'diff', {:class => 'btn primary'}
 
     .content.well
-      %h3= @snippet.file_name
+      %h3{:style => 'border-bottom: 2px solid #ddd'}= @snippet.file_name
+      .row
+        .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Updated at:
+        .span8{:style => 'padding-top: 5px;padding-bottom: 5px;'}= @snippet.updated_at.strftime("%Y-%m-%d")
       - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
-        .span10~ text_field_tag('description', :value => @snippet.description)
-        %p= @snippet.updated_at.strftime("%Y-%m-%d")
         .row
-          .span10~ text_area_tag('content', :value => @content, :class => 'edit-text')
+          .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Description:
+          .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:100%'})
+        .row
+          .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text')
         .row
           .span10{:style => 'text-align:right'}= submit_tag 'save', {:class => 'btn primary'}
       .row
