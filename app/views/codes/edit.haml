@@ -23,9 +23,14 @@
           .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Description:
           .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:100%'})
         .row
-          .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text')
+          .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text', :id => 'code')
         .row
           .span10{:style => 'text-align:right'}= submit_tag 'save', {:class => 'btn primary'}
       .row
         .span15
           %a{:href => url_for(:codes, :index)} Back to index
+
+= javascript_include_tag "codemirror/mode/" + @mode + "/" + @mode if @mode
+:javascript
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true});
+

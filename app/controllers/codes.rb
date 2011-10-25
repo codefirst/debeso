@@ -32,6 +32,7 @@ Debeso.controllers :codes do
     @commits = git.log.object("#{@id}.txt")
     file = "#{dir}/#{@id}.txt"
     open(file) {|f| @content = f.read}
+    @mode = CodesHelper.ext2lang(@snippet.file_name.split(".")[-1])
     render "codes/edit"
   end
 

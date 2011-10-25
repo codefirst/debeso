@@ -35,6 +35,7 @@ footer {
   border: 1px solid #CCC;
   border-radius: 3px;
   -webkit-border-radius: 3px;
+  margin-bottom: 10px;
 }
 
 .span0_5 {
