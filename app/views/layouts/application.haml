@@ -15,7 +15,7 @@
       %ul.nav
         %li.active=link_to "Home", url_for(:codes, :index)
         %li=link_to "About"#, url_for(:about, :index)
-      =form_tag url_for(:codes, :search), {:class => 'pull-right'} do |f|
+      =form_tag url_for(:codes, :search), {:method => :get, :class => 'pull-right'} do |f|
         = text_field_tag 'search_key', :placeholder=>"Search", :value => @search_key
 
 %body

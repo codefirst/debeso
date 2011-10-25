@@ -72,7 +72,7 @@ Debeso.controllers :codes do
     render "codes/show_diff"
   end
 
-  post :search do
+  get :search do
     @search_key = params[:search_key]
     dir = Setting[:repository_root]
     git = Git.open(dir)
