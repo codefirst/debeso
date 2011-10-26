@@ -45,4 +45,5 @@ class CodesHelper
        'yaml' => 'yaml'}
      map[ext.downcase]
    end
+
 end
