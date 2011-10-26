@@ -93,4 +93,16 @@ Debeso.controllers :codes do
     render "codes/search"
   end
 
+  get :show_snippet, :with => [:id, :commit] do
+    @id = params[:id]
+    @commit = params[:commit]
+    dir = Setting[:repository_root]
+    git = Git.open(dir)
+    @snippet = Snippet.where(:sha1_hash => @id).first
+    @commits = git.log.object("#{@id}.txt")
+    @content = git.object(@commit + ":" + @id + ".txt").contents
+    @mode = CodesHelper.ext2lang(@snippet.file_name.split(".")[-1])
+    render "codes/show_snippet"
+  end
+
 end

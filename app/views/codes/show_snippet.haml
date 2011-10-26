@@ -19,19 +19,12 @@
       .row
         .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Updated at:
         .span8{:style => 'padding-top: 5px;padding-bottom: 5px;'}= @snippet.updated_at.strftime("%Y-%m-%d")
-      - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
-        .row
-          .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Description:
-          .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:100%'})
-        .row
-          .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text', :id => 'code')
-        .row
-          .span10{:style => 'text-align:right'}= submit_tag 'save', {:class => 'btn primary'}
       .row
-        .span15
-          %a{:href => url_for(:codes, :index)} Back to index
+        .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Description:
+        .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:100%'})
+      .row
+        .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text', :id => 'code')
 
 = javascript_include_tag "codemirror/mode/" + @mode + "/" + @mode if @mode
 :javascript
-    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true});
-
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true, readOnly : true});
