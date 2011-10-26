@@ -1,0 +1,13 @@
+.sidebar.well
+  %span.header Edit History
+  - form_tag url_for(:codes, :show_diff, :repid => @id), :method => 'get' do
+    %table
+      - @commits.each_with_index do |commit, index|
+        .row
+          .span0_5= (index == @commits.size - 1 ? "&nbsp" : radio_button_tag("after", :value => commit.sha, :checked => index == 0))
+          .span0_5= (index == 0 ? "&nbsp" : radio_button_tag("before", :value => commit.sha, :checked => index == 1))
+          .span1
+            %a{:href => url_for(:codes, :show_snippet, :id => @id, :commit => commit.sha[0..7])}= commit.sha[0..7]
+          .span2= commit.date.strftime("%Y-%m-%d")
+    .row
+      .span3{:style => 'text-align:right'}= submit_tag 'diff', {:class => 'btn primary'}
