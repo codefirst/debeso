@@ -15,13 +15,15 @@
           .span3{:style => 'text-align:right'}= submit_tag 'diff', {:class => 'btn primary'}
 
     .content.well
-      %h3{:style => 'border-bottom: 2px solid #ddd'}= @snippet.file_name
+      %h3{:style => 'border-bottom: 2px solid #ddd'}
+        %span= @snippet.file_name
+        %span{:style => 'font-size: 0.8em;color: #ccc;'}=" (#{@commit})"
       .row
         .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Updated at:
         .span8{:style => 'padding-top: 5px;padding-bottom: 5px;'}= @snippet.updated_at.strftime("%Y-%m-%d")
       .row
         .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Description:
-        .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:100%'})
+        .span8{:style => 'padding-top: 5px;padding-bottom: 5px;'}= @snippet.description
       .row
         .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text', :id => 'code')
       .row
