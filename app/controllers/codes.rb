@@ -67,6 +67,7 @@ Debeso.controllers :codes do
     @after_sha = params[:after]
     dir = Setting[:repository_root]
     git = Git.open(dir)
+    @commits = git.log.object("#{@id}.txt")
     before_commit = git.gcommit(@before_sha)
     after_commit = git.gcommit(@after_sha)
     @diff = git.diff(before_commit, after_commit).path("#{@id}.txt")
