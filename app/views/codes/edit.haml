@@ -3,11 +3,13 @@
     = partial("codes/logs")
 
     .content.well
-      %h3{:style => 'border-bottom: 2px solid #ddd'}= @snippet.file_name
-      .row
-        .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Updated at:
-        .span8{:style => 'padding-top: 5px;padding-bottom: 5px;'}= @snippet.updated_at.strftime("%Y-%m-%d")
       - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
+        .row{:style => 'border-bottom: 2px solid #ddd'}
+          .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Snippet Name:
+          .span8{:style => 'padding-top: 5px;padding-bottom: 5px;'}= text_field_tag('file_name', :value => @snippet.file_name)
+        .row
+          .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Updated at:
+          .span8{:style => 'padding-top: 5px;padding-bottom: 5px;'}= @snippet.updated_at.strftime("%Y-%m-%d")
         .row
           .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Description:
           .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:100%'})

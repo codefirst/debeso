@@ -4,6 +4,7 @@
 class CodesHelper
 #   def ext2lang(ext)
    def self.ext2lang(ext)
+     return nil if ext.blank?
      map = {'c' => 'clike',
        'h' => 'clike',
        'java' => 'clike',

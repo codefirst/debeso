@@ -5,7 +5,7 @@
         %ul
           - @snippets.each do |snippet|
             %li
-              %a{:href => url_for(:codes, :edit, :id => snippet.sha1_hash)}= snippet.file_name
+              %a{:href => url_for(:codes, :edit, :id => snippet.sha1_hash)}
+                = snippet.file_name.blank? ? "(no name)" : snippet.file_name
         - form_tag url_for(:codes, :create_snippet), :method => 'post' do
-          = text_field_tag 'snippet_name', {:placeholder => 'New filename'}
           = submit_tag 'add file', :class => 'btn primary'

@@ -10,54 +10,57 @@ Debeso.controllers :codes do
   post :create_snippet do
     dir = Setting[:repository_root]
     git = Git.init(dir)
-    snippet_name = params[:snippet_name]
     id = Digest::SHA1.hexdigest(Time.now.to_s)
     # add "id_" to avoid implicit binary translation
     id = "id_" + id
     filename = "#{id}.txt"
     fullpath = "#{dir}/#{filename}"
     open(fullpath, "w") {}
-    git.add(fullpath)
-    git.commit("add #{snippet_name}")
-    snippet = Snippet.new(:sha1_hash => id, :file_name => snippet_name, :created_at => Time.now, :updated_at => Time.now)
+    snippet = Snippet.new(:sha1_hash => id, :created_at => Time.now, :updated_at => Time.now)
     snippet.save
     redirect url(:codes, :edit, :id => id)
   end
 
   get :edit, :with => :id do
     @id = params[:id]
-    @snippet = Snippet.where(:sha1_hash => @id).first
-    dir = Setting[:repository_root]
-    git = Git.open(dir)
-    @commits = git.log.object("#{@id}.txt")
-    file = "#{dir}/#{@id}.txt"
-    open(file) {|f| @content = f.read}
-    @mode = CodesHelper.ext2lang(@snippet.file_name.split(".")[-1])
+    @commits = []
+    unless @id.blank?
+      @snippet = Snippet.where(:sha1_hash => @id).first
+      dir = Setting[:repository_root]
+      git = Git.open(dir)
+      @commits = git.log.object("#{@id}.txt")
+      file = "#{dir}/#{@id}.txt"
+      open(file) {|f| @content = f.read}
+      @mode = CodesHelper.ext2lang(@snippet.file_name.split(".")[-1]) unless @snippet.file_name.blank?
+    end      
     render "codes/edit"
   end
 
   post :edit, :with => :id do
     @id = params[:id]
     @content = params[:content]
+    file_name = params[:file_name]
+    dir = Setting[:repository_root]
+    fullpath = dir + "/#{@id}.txt"
 
+    git = Git.open(dir)
+    git.add(fullpath) if git.ls_files(fullpath).blank?
+
+    # save to DB
     @snippet = Snippet.where(:sha1_hash => @id).first
+    @snippet.file_name = file_name
     @snippet.description = params[:description]
     @snippet.updated_at = Time.now
     @snippet.save
 
-    dir = Setting[:repository_root]
-    file = dir + "/#{@id}.txt"
-
-    if File.exists?(file)
-      old_content = ""
-      open(file) {|f| old_content = f.read}
-    end
-
+    # save to repository
+    old_content = ""
+    open(fullpath) {|f| old_content = f.read} if File.exists?(fullpath)
     unless old_content == @content
-      open(file, "w") {|f| f.write(@content)}
-      git = Git.open(dir)
-      git.commit_all("update")
+      open(fullpath, "w") {|f| f.write(@content)}
+      git.commit_all("update #{file_name}")
     end
+
     redirect url(:codes, :edit, :id => @id)
   end
 
