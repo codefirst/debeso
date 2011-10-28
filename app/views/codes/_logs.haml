@@ -3,7 +3,7 @@
   - form_tag url_for(:codes, :show_diff, :repid => @id), :method => 'get' do
     %table
       - @commits.each_with_index do |commit, index|
-        .row
+        .row{:class => "#{@commit == commit.sha[0..7] ? 'current' : ''}"}
           .span0_5= (index == @commits.size - 1 ? "&nbsp" : radio_button_tag("after", :value => commit.sha, :checked => index == 0))
           .span0_5= (index == 0 ? "&nbsp" : radio_button_tag("before", :value => commit.sha, :checked => index == 1))
           .span1
