@@ -1,9 +1,8 @@
 # Helper methods defined here can be accessed in any controller or view in the application
 
 #Debeso.helpers do
-class CodesHelper
-#   def ext2lang(ext)
-   def self.ext2lang(ext)
+module CodesHelper
+   def ext2lang(ext)
      return nil if ext.blank?
      map = {'c' => 'clike',
        'h' => 'clike',
@@ -45,6 +44,15 @@ class CodesHelper
        'yml' => 'yaml',
        'yaml' => 'yaml'}
      map[ext.downcase]
+   end
+
+   def get_lines(content, num)
+     lines = content.rstrip.split(/\r?\n/)
+     if lines.size < num
+       lines.join("\n")
+     else
+       lines[0..(num - 1)].join("\n")
+     end
    end
 
 end

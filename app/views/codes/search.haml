@@ -5,10 +5,9 @@
         %ul
           - @snippets.each do |snippet|
             %li
-              %p
-                %a{:href => url_for(:codes, :edit, :id => snippet.sha1_hash)}= snippet.file_name
-              %p
-                - unless @search_result[snippet.sha1_hash].nil?
+              %a{:href => url_for(:codes, :edit, :id => snippet.sha1_hash)}= snippet.file_name
+              - unless @search_result[snippet.sha1_hash].nil?
+                .summary
                   - @search_result[snippet.sha1_hash].sort.each do |key, value|
                     %div
                       %span10~ "#{key}: #{value.gsub(' ', '&nbsp;')}"

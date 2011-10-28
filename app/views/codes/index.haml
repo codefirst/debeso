@@ -4,8 +4,13 @@
       .span14
         %ul
           - @snippets.each do |snippet|
-            %li
+            %li.files
               %a{:href => url_for(:codes, :edit, :id => snippet.sha1_hash)}
                 = snippet.file_name.blank? ? "(no name)" : snippet.file_name
+              - unless snippet.summary.blank?
+                .summary
+                  - snippet.summary.rstrip.split(/\r?\n/).each do |line|
+                    = line
+                    %br
         - form_tag url_for(:codes, :create_snippet), :method => 'post' do
           = submit_tag 'add file', :class => 'btn primary'

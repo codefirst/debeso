@@ -45,3 +45,14 @@ footer {
 .current {
   background-color: #FEE9CC;
 }
+
+li.files {
+  margin-bottom: 5px;
+}
+
+.summary {
+  background-color: #FEFBF3;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+

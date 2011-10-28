@@ -2,6 +2,8 @@ require 'digest/sha1'
 require 'git'
 Debeso.controllers :codes do
 
+  include CodesHelper
+
   get :index, :map => '/' do
     @snippets = Snippet.all
     render 'codes/index'
@@ -31,27 +33,20 @@ Debeso.controllers :codes do
       @commits = git.log.object("#{@id}.txt")
       file = "#{dir}/#{@id}.txt"
       open(file) {|f| @content = f.read}
-      @mode = CodesHelper.ext2lang(@snippet.file_name.split(".")[-1]) unless @snippet.file_name.blank?
+      @mode = ext2lang(@snippet.file_name.split(".")[-1]) unless @snippet.file_name.blank?
     end      
     render "codes/edit"
   end
 
   post :edit, :with => :id do
     @id = params[:id]
-    @content = params[:content]
+    @content = params[:content] || ""
     file_name = params[:file_name]
     dir = Setting[:repository_root]
     fullpath = dir + "/#{@id}.txt"
 
     git = Git.open(dir)
     git.add(fullpath) if git.ls_files(fullpath).blank?
-
-    # save to DB
-    @snippet = Snippet.where(:sha1_hash => @id).first
-    @snippet.file_name = file_name
-    @snippet.description = params[:description]
-    @snippet.updated_at = Time.now
-    @snippet.save
 
     # save to repository
     old_content = ""
@@ -60,6 +55,15 @@ Debeso.controllers :codes do
       open(fullpath, "w") {|f| f.write(@content)}
       git.commit_all("update #{file_name}")
     end
+
+    # save to DB
+    @snippet = Snippet.where(:sha1_hash => @id).first
+    @snippet.file_name = file_name
+    @snippet.description = params[:description]
+    @snippet.summary = get_lines(@content, 3)
+    @snippet.updated_at = Time.now
+    @snippet.save
+
 
     redirect url(:codes, :edit, :id => @id)
   end
@@ -105,7 +109,7 @@ Debeso.controllers :codes do
     @commits = git.log.object("#{@id}.txt")
     @snippet = Snippet.where(:sha1_hash => @id).first
     @content = git.object(@commit + ":" + @id + ".txt").contents
-    @mode = CodesHelper.ext2lang(@snippet.file_name.split(".")[-1])
+    @mode = ext2lang(@snippet.file_name.split(".")[-1])
     render "codes/show_snippet"
   end
 
