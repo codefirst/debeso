@@ -15,23 +15,33 @@ Debeso.controllers :codes do
   end
 
   get :edit do
-    edit_action
+    @id = params[:id]
+    @snippet = get_snippet(@id)
     render "codes/edit"
   end
 
   get :edit, :with => :id do
-    edit_action
+    @id = params[:id]
+    @snippet = get_snippet(@id)
     render "codes/edit"
   end
 
   post :edit do
     @id = create_snippet
-    save_action
+    file_name = params[:file_name]
+    description = params[:description]
+    content = params[:content] || ''
+    @snippet = save_action(@id, file_name, description, content)
+    redirect url(:codes, :edit, :id => @id)
   end
 
   post :edit, :with => :id do
     @id = params[:id]
-    save_action
+    file_name = params[:file_name]
+    description = params[:description]
+    content = params[:content] || ''
+    @snippet = save_action(@id, file_name, description, content)
+    redirect url(:codes, :edit, :id => @id)
   end
 
   get :show_diff do
@@ -47,11 +57,7 @@ Debeso.controllers :codes do
       redirect url(:codes, :edit, :id => @id)
       return
     end
-    git = Git.open(@repository_root)
-    @commits = git.log.object("#{@id}.txt")
-    before_commit = git.gcommit(@before_sha)
-    after_commit = git.gcommit(@after_sha)
-    @diff = git.diff(before_commit, after_commit).path("#{@id}.txt")
+    @snippet = Snippet.find_by_hash(@id)
     render "codes/show_diff"
   end
 
@@ -76,8 +82,7 @@ Debeso.controllers :codes do
     @commits = git.log.object("#{@id}.txt")
     @snippet = Snippet.where(:sha1_hash => @id).first
     @content = git.object(@commit + ":" + @id + ".txt").contents
-    @mode = ext2lang(File.extname(@snippet.file_name))
+    @mode = @snippet.mode
     render "codes/show_snippet"
   end
-
 end

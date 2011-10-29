@@ -6,8 +6,8 @@
     .content.well
       %h4
         Revision
-        = @diff.to[0..7] + ':' + @diff.from[0..7]
-      %textarea#code{:name => 'code'}= @diff.patch.split(/\r?\n/)[4..-1].join("\n")
+        = @snippet.diff(@before_sha, @after_sha).to[0..7] + ':' + @snippet.diff(@before_sha, @after_sha).from[0..7]
+      %textarea#code{:name => 'code'}= @snippet.diff(@before_sha, @after_sha).patch.split(/\r?\n/)[4..-1].join("\n")
       .row
         .span15
           %a{:href => url_for(:codes, :edit, :id => @id)} Back to File

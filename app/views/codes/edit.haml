@@ -16,14 +16,14 @@
             .span8.text
               = @snippet.updated_at.strftime("%Y-%m-%d %H:%M:%S")
         .row
-          .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text', :id => 'code')
+          .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @snippet.content, :class => 'edit-text', :id => 'code')
         .row
           .span10{:style => 'text-align:right'}= submit_tag 'Update', {:class => 'btn primary'}
       .row
         .span15
           %a{:href => url_for(:codes, :index)} Back to Index
 
-= javascript_include_tag "codemirror/mode/" + @mode + "/" + @mode if @mode
+= javascript_include_tag "codemirror/mode/" + @snippet.mode + "/" + @snippet.mode if @snippet.mode
 :javascript
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true});
 
