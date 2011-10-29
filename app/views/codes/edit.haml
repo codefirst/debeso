@@ -6,14 +6,15 @@
       - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
         .row
           .span2.text Name:
-          .span8= text_field_tag('file_name', :value => @snippet.file_name)
-        .row
-          .span2.text Updated at:
-          .span8.text
-            = @snippet.updated_at.blank? ? '' : @snippet.updated_at.strftime("%Y-%m-%d %H:%M:%S")
+          .span8= text_field_tag('file_name', :value => @snippet.file_name, :placeholder => 'Snippet name')
         .row
           .span2.text Description:
-          .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:80%'})
+          .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:80%', :placeholder => 'Description'})
+        - unless @snippet.updated_at.blank?
+          .row
+            .span2.text Updated at:
+            .span8.text
+              = @snippet.updated_at.strftime("%Y-%m-%d %H:%M:%S")
         .row
           .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text', :id => 'code')
         .row
