@@ -33,3 +33,5 @@ gem 'padrino', '0.10.5'
 # end
 
 gem 'git'
+gem 'json', "= 1.4.6"
+
