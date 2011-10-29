@@ -1,6 +1,7 @@
 body {
   margin-top: 40px;
   padding-top: 20px;
+  margin-bottom: 20px;
 }
 
 h1 {
@@ -22,7 +23,7 @@ footer {
 
 .edit-text {
   width: 100%;
-  height: 300px;
+  min-height: 300px;
   margin-bottom: 20px;
 }
 
@@ -67,11 +68,15 @@ li.files {
   padding: 0px;
 }
 
-.summary .CodeMirror-scroll {
+.CodeMirror-scroll {
   height: auto;
+  min-height: 300px;
   overflow-y: hidden;
   overflow-x: auto;
   width: 100%
+}
+li .CodeMirror-scroll {
+  min-height: 0px;
 }
 
 .text {
