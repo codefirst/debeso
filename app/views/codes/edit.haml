@@ -5,7 +5,7 @@
     .content.well
       - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
         .row
-          .span2.text Snippet Name:
+          .span2.text Name:
           .span8= text_field_tag('file_name', :value => @snippet.file_name)
         .row
           .span2.text Updated at:
