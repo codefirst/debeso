@@ -5,9 +5,14 @@
         %ul
           - @snippets.each do |snippet|
             %li
-              %a{:href => url_for(:codes, :edit, :id => snippet.sha1_hash)}= snippet.file_name
+              = link_to snippet.file_name, url_for(:codes, :edit, :id => snippet.sha1_hash)
               - unless @search_result[snippet.sha1_hash].nil?
                 .summary
-                  - @search_result[snippet.sha1_hash].sort.each do |key, value|
-                    %div
-                      %span10~ "#{key}: #{value.gsub(' ', '&nbsp;')}"
+                  %textarea.code{:name => 'code'}~ @search_result[snippet.sha1_hash].sort[0..2].map {|k,v| v + "\n"}
+
+:javascript
+  var textAreas = document.getElementsByClassName("code");
+  for (var i = 0, l = textAreas.length; i < l; i++) {
+    CodeMirror.fromTextArea(textAreas[i], {readOnly : true, lineNumbers : false});
+  }
+
