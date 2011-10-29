@@ -4,6 +4,7 @@
 module CodesHelper
    def ext2lang(ext)
      return nil if ext.blank?
+     ext.gsub!(".", "")
      map = {'c' => 'clike',
        'h' => 'clike',
        'java' => 'clike',

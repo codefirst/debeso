@@ -36,8 +36,8 @@ Debeso.controllers :codes do
       @commits = git.log.object("#{@id}.txt")
       file = "#{@repository_root}/#{@id}.txt"
       open(file) {|f| @content = f.read}
-      @mode = ext2lang(@snippet.file_name.split(".")[-1]) unless @snippet.file_name.blank?
-    end      
+      @mode = ext2lang(File.extname(@snippet.file_name)) unless @snippet.file_name.blank?
+    end
     render "codes/edit"
   end
 
@@ -76,7 +76,7 @@ Debeso.controllers :codes do
       redirect url(:codes, :index)
       return
     end
-    
+
     @search_result, ids = search_from_repository(@repository_root, @search_key)
     @snippets = search_from_db(@search_key, ids)
 

@@ -3,15 +3,15 @@
     = partial("codes/logs")
 
     .content.well
-      %h3{:style => 'border-bottom: 2px solid #ddd'}
+      %h3
         %span= @snippet.file_name
         %span{:style => 'font-size: 0.8em;color: #ccc;'}=" (#{@commit})"
       .row
-        .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Updated at:
-        .span8{:style => 'padding-top: 5px;padding-bottom: 5px;'}= @snippet.updated_at.strftime("%Y-%m-%d")
+        .span2.text Updated at:
+        .span8.text= @snippet.updated_at.strftime("%Y-%m-%d %H:%M:%S")
       .row
-        .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Description:
-        .span8{:style => 'padding-top: 5px;padding-bottom: 5px;'}= @snippet.description
+        .span2.text Description:
+        .span8.text= @snippet.description
       .row
         .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text', :id => 'code')
       .row

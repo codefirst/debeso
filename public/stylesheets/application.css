@@ -1,6 +1,6 @@
 body {
   margin-top: 40px;
-  padding-top: 40px;
+  padding-top: 20px;
 }
 
 h1 {
@@ -62,5 +62,18 @@ li.files {
   background-color: #FEFBF3;
   border: 1px solid #ccc;
   padding: 5px;
+}
+
+.text {
+  padding: 4px;
+  font-size: 13px;
+  height: 18px;
+  line-height: 18px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.content h3 {
+  padding-left: 4px;
 }
 

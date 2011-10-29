@@ -4,15 +4,15 @@
 
     .content.well
       - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
-        .row{:style => 'border-bottom: 2px solid #ddd'}
-          .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Snippet Name:
-          .span8{:style => 'padding-top: 5px;padding-bottom: 5px;'}= text_field_tag('file_name', :value => @snippet.file_name)
         .row
-          .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Updated at:
-          .span8{:style => 'padding-top: 5px;padding-bottom: 5px;'}= @snippet.updated_at.strftime("%Y-%m-%d")
+          .span2.text Snippet Name:
+          .span8= text_field_tag('file_name', :value => @snippet.file_name)
         .row
-          .span2{:style => 'padding-top: 5px;padding-bottom: 5px;'} Description:
-          .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:100%'})
+          .span2.text Updated at:
+          .span8.text= @snippet.updated_at.strftime("%Y-%m-%d %H:%M:%S")
+        .row
+          .span2.text Description:
+          .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:80%'})
         .row
           .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text', :id => 'code')
         .row
