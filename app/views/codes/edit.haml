@@ -9,7 +9,8 @@
           .span8= text_field_tag('file_name', :value => @snippet.file_name)
         .row
           .span2.text Updated at:
-          .span8.text= @snippet.updated_at.strftime("%Y-%m-%d %H:%M:%S")
+          .span8.text
+            = @snippet.updated_at.blank? ? '' : @snippet.updated_at.strftime("%Y-%m-%d %H:%M:%S")
         .row
           .span2.text Description:
           .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:80%'})

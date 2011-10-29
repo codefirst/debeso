@@ -14,42 +14,28 @@ Debeso.controllers :codes do
     render 'codes/index'
   end
 
-  post :create_snippet do
-    git = Git.init(@repository_root)
-    id = Digest::SHA1.hexdigest(Time.now.to_s)
-    # add "id_" to avoid implicit binary translation
-    id = "id_" + id
-    filename = "#{id}.txt"
-    fullpath = "#{@repository_root}/#{filename}"
-    open(fullpath, "w") {}
-    snippet = Snippet.new(:sha1_hash => id, :created_at => Time.now, :updated_at => Time.now)
-    snippet.save
-    redirect url(:codes, :edit, :id => id)
+  get :edit do
+    edit_action
+    render "codes/edit"
   end
 
   get :edit, :with => :id do
-    @id = params[:id]
-    @commits = []
-    unless @id.blank?
-      @snippet = Snippet.where(:sha1_hash => @id).first
-      git = Git.open(@repository_root)
-      @commits = git.log.object("#{@id}.txt")
-      file = "#{@repository_root}/#{@id}.txt"
-      open(file) {|f| @content = f.read}
-      @mode = ext2lang(File.extname(@snippet.file_name)) unless @snippet.file_name.blank?
-    end
+    edit_action
     render "codes/edit"
+  end
+
+  post :edit do
+    @id = create_snippet
+    save_action
   end
 
   post :edit, :with => :id do
     @id = params[:id]
-    @content = params[:content] || ""
-    file_name = params[:file_name]
-    description = params[:description]
-    fullpath = @repository_root + "/#{@id}.txt"
-    save_to_repository(@id, file_name, @content)
-    save_snippet(@id, file_name, description, @content)
-    redirect url(:codes, :edit, :id => @id)
+    save_action
+  end
+
+  get :show_diff do
+    # fake action for null id param
   end
 
   get :show_diff, :with => :id do

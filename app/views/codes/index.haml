@@ -13,5 +13,4 @@
                   - snippet.summary.rstrip.split(/\r?\n/).each do |line|
                     = line
                     %br
-        - form_tag url_for(:codes, :create_snippet), :method => 'post' do
-          = submit_tag 'add file', :class => 'btn primary'
+        %a{:href => url_for(:codes, :edit), :class => 'btn primary'} add file
