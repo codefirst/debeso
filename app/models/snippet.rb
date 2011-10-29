@@ -30,6 +30,7 @@ class Snippet < ActiveRecord::Base
   end
 
   def content(revision = 'HEAD')
+    return '' if sha1_hash.blank?
     git = Git.open(Setting[:repository_root])
     git.object(revision + ":" + sha1_hash + ".txt").contents
   end
