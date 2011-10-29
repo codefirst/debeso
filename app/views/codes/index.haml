@@ -7,6 +7,7 @@
             %li.files
               %a{:href => url_for(:codes, :edit, :id => snippet.sha1_hash)}
                 = snippet.file_name.blank? ? "(no name)" : snippet.file_name
+              .updated_at= "(#{snippet.updated_at.strftime('%Y-%m-%d')})"
               - unless snippet.summary.blank?
                 .summary
                   - snippet.summary.rstrip.split(/\r?\n/).each do |line|

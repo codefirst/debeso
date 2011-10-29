@@ -9,7 +9,8 @@ Debeso.controllers :codes do
   end
 
   get :index, :map => '/' do
-    @snippets = Snippet.all
+    snippets = Arel::Table.new(:snippets)
+    @snippets = Snippet.order(snippets[:updated_at].desc)
     render 'codes/index'
   end
 
