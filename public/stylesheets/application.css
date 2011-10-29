@@ -48,10 +48,15 @@ footer {
 
 .span0_5 {
   width: 10px;
+  margin-left: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .current {
   background-color: #FEE9CC;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
 }
 
 li.files {
@@ -75,5 +80,26 @@ li.files {
 
 .content h3 {
   padding-left: 4px;
+}
+
+.commit-log {
+  border-bottom: 2px solid #ddd;
+  margin-top: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+}
+.commit-log .row {
+  margin-left: 0px;
+}
+.commit-log-rev {
+  padding-top:4px;
+  padding-bottom:4px;
+}
+.commit-log-date {
+  padding-top:4px;
+  padding-bottom:4px;
+  margin-left: 35px;
+  width: 85px;
 }
 
