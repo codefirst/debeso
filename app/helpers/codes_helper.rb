@@ -100,4 +100,28 @@ module CodesHelper
     @snippet.save
    end
 
+   def search_from_repository(repository_root, search_key)
+     git = Git.open(repository_root)
+     results = git.grep(search_key, nil, :ignore_case => true)
+     search_result = {}
+     ids = results.map do |key, value|
+       id = key.split(":")[1]
+       id = id.sub(File.extname(id), "")
+       value.each do |result|
+         search_result[id] ||= {}
+         search_result[id][result[0]] = result[1]
+       end
+       id
+     end
+     [search_result, ids]
+   end
+
+   def search_from_db(search_key, ids)
+     snippets = Arel::Table.new(:snippets)
+     query = snippets[:sha1_hash].in(ids)
+     query = query.or(snippets[:file_name].matches("%#{search_key}%"))
+     query = query.or(snippets[:description].matches("%#{search_key}%"))
+     snippets.where(query).project(snippets[:sha1_hash], snippets[:file_name]).to_a
+   end
+
 end
