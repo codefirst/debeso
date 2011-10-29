@@ -68,10 +68,8 @@ Debeso.controllers :codes do
       redirect url(:codes, :index)
       return
     end
-
-    @search_result, ids = search_from_repository(@repository_root, @search_key)
+    @search_result, ids = Snippet.search_from_repository(@repository_root, @search_key)
     @snippets = Snippet.search_from_db(@search_key, ids)
-
     render "codes/search"
   end
 
