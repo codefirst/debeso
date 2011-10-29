@@ -4,19 +4,22 @@ Debeso.controllers :codes do
 
   include CodesHelper
 
+  before do
+    @repository_root = Setting[:repository_root]
+  end
+
   get :index, :map => '/' do
     @snippets = Snippet.all
     render 'codes/index'
   end
 
   post :create_snippet do
-    dir = Setting[:repository_root]
-    git = Git.init(dir)
+    git = Git.init(@repository_root)
     id = Digest::SHA1.hexdigest(Time.now.to_s)
     # add "id_" to avoid implicit binary translation
     id = "id_" + id
     filename = "#{id}.txt"
-    fullpath = "#{dir}/#{filename}"
+    fullpath = "#{@repository_root}/#{filename}"
     open(fullpath, "w") {}
     snippet = Snippet.new(:sha1_hash => id, :created_at => Time.now, :updated_at => Time.now)
     snippet.save
@@ -28,10 +31,9 @@ Debeso.controllers :codes do
     @commits = []
     unless @id.blank?
       @snippet = Snippet.where(:sha1_hash => @id).first
-      dir = Setting[:repository_root]
-      git = Git.open(dir)
+      git = Git.open(@repository_root)
       @commits = git.log.object("#{@id}.txt")
-      file = "#{dir}/#{@id}.txt"
+      file = "#{@repository_root}/#{@id}.txt"
       open(file) {|f| @content = f.read}
       @mode = ext2lang(@snippet.file_name.split(".")[-1]) unless @snippet.file_name.blank?
     end      
@@ -43,8 +45,7 @@ Debeso.controllers :codes do
     @content = params[:content] || ""
     file_name = params[:file_name]
     description = params[:description]
-    dir = Setting[:repository_root]
-    fullpath = dir + "/#{@id}.txt"
+    fullpath = @repository_root + "/#{@id}.txt"
     save_to_repository(@id, file_name, @content)
     save_snippet(@id, file_name, description, @content)
     redirect url(:codes, :edit, :id => @id)
@@ -54,8 +55,7 @@ Debeso.controllers :codes do
     @id = params[:id]
     @before_sha = params[:before]
     @after_sha = params[:after]
-    dir = Setting[:repository_root]
-    git = Git.open(dir)
+    git = Git.open(@repository_root)
     @commits = git.log.object("#{@id}.txt")
     before_commit = git.gcommit(@before_sha)
     after_commit = git.gcommit(@after_sha)
@@ -70,8 +70,7 @@ Debeso.controllers :codes do
       redirect url(:codes, :index)
       return
     end
-    dir = Setting[:repository_root]
-    git = Git.open(dir)
+    git = Git.open(@repository_root)
     results = git.grep(@search_key, nil, :ignore_case => true)
     @search_result = {}
     ids = results.map do |key, value|
@@ -91,8 +90,7 @@ Debeso.controllers :codes do
   get :show_snippet, :with => [:id, :commit] do
     @id = params[:id]
     @commit = params[:commit]
-    dir = Setting[:repository_root]
-    git = Git.open(dir)
+    git = Git.open(@repository_root)
     @commits = git.log.object("#{@id}.txt")
     @snippet = Snippet.where(:sha1_hash => @id).first
     @content = git.object(@commit + ":" + @id + ".txt").contents
