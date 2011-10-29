@@ -70,7 +70,7 @@ Debeso.controllers :codes do
     end
 
     @search_result, ids = search_from_repository(@repository_root, @search_key)
-    @snippets = search_from_db(@search_key, ids)
+    @snippets = Snippet.search_from_db(@search_key, ids)
 
     render "codes/search"
   end
@@ -78,11 +78,7 @@ Debeso.controllers :codes do
   get :show_snippet, :with => [:id, :commit] do
     @id = params[:id]
     @commit = params[:commit]
-    git = Git.open(@repository_root)
-    @commits = git.log.object("#{@id}.txt")
-    @snippet = Snippet.where(:sha1_hash => @id).first
-    @content = git.object(@commit + ":" + @id + ".txt").contents
-    @mode = @snippet.mode
+    @snippet = Snippet.find_by_hash(@id)
     render "codes/show_snippet"
   end
 end

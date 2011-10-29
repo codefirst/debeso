@@ -13,11 +13,11 @@
         .span2.text Description:
         .span8.text= @snippet.description
       .row
-        .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text', :id => 'code')
+        .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @snippet.content, :class => 'edit-text', :id => 'code')
       .row
         .span15
           %a{:href => url_for(:codes, :edit, :id => @id)} Back to Edit
 
-= javascript_include_tag "codemirror/mode/" + @mode + "/" + @mode if @mode
+= javascript_include_tag "codemirror/mode/" + @snippet.mode + "/" + @snippet.mode if @snippet.mode
 :javascript
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true, readOnly : true});

@@ -74,14 +74,6 @@ module CodesHelper
     [search_result, ids]
   end
 
-  def search_from_db(search_key, ids)
-    snippets = Arel::Table.new(:snippets)
-    query = snippets[:sha1_hash].in(ids)
-    query = query.or(snippets[:file_name].matches("%#{search_key}%"))
-    query = query.or(snippets[:description].matches("%#{search_key}%"))
-    snippets.where(query).project(snippets[:sha1_hash], snippets[:file_name]).to_a
-  end
-
   def create_snippet
     git = Git.init(@repository_root)
     id = Digest::SHA1.hexdigest(Time.now.to_s)
