@@ -7,6 +7,14 @@ h1 {
   margin-bottom: 5px;
 }
 
+.messages {
+  margin: 10px;
+}
+
+.message {
+  margin-left: 10px;
+}
+
 footer {
   color: #666;
   text-align: center;

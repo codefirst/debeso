@@ -55,4 +55,26 @@ module CodesHelper
      end
    end
 
+   def message_tags
+     tags = ''
+     [:info, :error, :warning].each do |level|
+       if flash[level].class == String
+         tags << message_tag(level, flash[level])
+       elsif flash[level].class == Array
+         flash[level].each do |message|
+           tags << message_tag(level, message)
+         end
+       end
+     end
+     tags
+   end
+
+   def message_tag(level, message)
+     tag = ''
+     tag << "<div>"
+     tag << "<span class='label #{level.to_s}'>#{level}</span>"
+     tag << "<span class='message'>#{message}</span>"
+     tag << "</div>"
+     tag
+   end
 end
