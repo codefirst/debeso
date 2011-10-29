@@ -55,6 +55,11 @@ Debeso.controllers :codes do
     @id = params[:id]
     @before_sha = params[:before]
     @after_sha = params[:after]
+    if @before_sha.blank? or @after_sha.blank?
+      flash[:warning] = "revisions are not selected"
+      redirect url(:codes, :edit, :id => @id)
+      return
+    end
     git = Git.open(@repository_root)
     @commits = git.log.object("#{@id}.txt")
     before_commit = git.gcommit(@before_sha)
