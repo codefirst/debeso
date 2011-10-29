@@ -113,7 +113,7 @@ Debeso.controllers :codes do
     @commits = git.log.object("#{@id}.txt")
     @snippet = Snippet.where(:sha1_hash => @id).first
     @content = git.object(@commit + ":" + @id + ".txt").contents
-    @mode = ext2lang(@snippet.file_name.split(".")[-1])
+    @mode = ext2lang(File.extname(@snippet))
     render "codes/show_snippet"
   end
 
