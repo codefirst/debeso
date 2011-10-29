@@ -60,13 +60,18 @@ footer {
 }
 
 li.files {
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 .summary {
-  background-color: #FEFBF3;
-  border: 1px solid #ccc;
-  padding: 5px;
+  padding: 0px;
+}
+
+.summary .CodeMirror-scroll {
+  height: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
+  width: 100%
 }
 
 .text {

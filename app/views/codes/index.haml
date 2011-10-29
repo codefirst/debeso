@@ -1,16 +1,25 @@
 .container
   .well
+    %h3 Recent Snippets
     .row
-      .span14
+      .span15{:style => 'text-align: right'}
+        %a{:href => url_for(:codes, :edit), :class => 'btn primary'} Add Snippet
+    .row
+      .span15
         %ul
           - @snippets.each do |snippet|
             %li.files
-              %a{:href => url_for(:codes, :edit, :id => snippet.sha1_hash)}
-                = snippet.file_name.blank? ? "(no name)" : snippet.file_name
-              .updated_at= "(#{snippet.updated_at.strftime('%Y-%m-%d')})"
+              %span.name= link_to snippet.file_name.blank? ? "(no name)" : snippet.file_name,
+              url_for(:codes, :edit, :id => snippet.sha1_hash)
+              %span.sperator -
+              %span.updated_at= snippet.updated_at.strftime('%Y-%m-%d %H:%M:%S')
               - unless snippet.summary.blank?
                 .summary
-                  - snippet.summary.rstrip.split(/\r?\n/).each do |line|
-                    = line
-                    %br
-        %a{:href => url_for(:codes, :edit), :class => 'btn primary'} Add Snippet
+                  %textarea.code{:name => 'code'}~ snippet.summary
+
+:javascript
+  var textAreas = document.getElementsByClassName("code");
+  for (var i = 0, l = textAreas.length; i < l; i++) {
+    CodeMirror.fromTextArea(textAreas[i], {readOnly : true, lineNumbers : true});
+  }
+
