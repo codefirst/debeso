@@ -1,6 +1,6 @@
 .sidebar.well
   %span.header Edit History
-  - form_tag url_for(:codes, :show_diff, :repid => @id), :method => 'get' do
+  - form_tag url_for(:codes, :show_diff, :id => @id), :method => 'get' do
     %table
       - @commits.each_with_index do |commit, index|
         .row{:class => "#{@commit == commit.sha[0..7] ? 'current' : ''}"}

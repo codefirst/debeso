@@ -42,33 +42,16 @@ Debeso.controllers :codes do
     @id = params[:id]
     @content = params[:content] || ""
     file_name = params[:file_name]
+    description = params[:description]
     dir = Setting[:repository_root]
     fullpath = dir + "/#{@id}.txt"
-
-    git = Git.open(dir)
-    git.add(fullpath) if git.ls_files(fullpath).blank?
-
-    # save to repository
-    old_content = ""
-    open(fullpath) {|f| old_content = f.read} if File.exists?(fullpath)
-    unless old_content == @content
-      open(fullpath, "w") {|f| f.write(@content)}
-      git.commit_all("update #{file_name}")
-    end
-
-    # save to DB
-    @snippet = Snippet.where(:sha1_hash => @id).first
-    @snippet.file_name = file_name
-    @snippet.description = params[:description]
-    @snippet.summary = get_lines(@content, 3)
-    @snippet.updated_at = Time.now
-    @snippet.save
-
+    save_to_repository(@id, file_name, @content)
+    save_snippet(@id, file_name, description, @content)
     redirect url(:codes, :edit, :id => @id)
   end
 
-  get :show_diff, :with => :repid do
-    @id = params[:repid]
+  get :show_diff, :with => :id do
+    @id = params[:id]
     @before_sha = params[:before]
     @after_sha = params[:after]
     dir = Setting[:repository_root]
@@ -113,7 +96,7 @@ Debeso.controllers :codes do
     @commits = git.log.object("#{@id}.txt")
     @snippet = Snippet.where(:sha1_hash => @id).first
     @content = git.object(@commit + ":" + @id + ".txt").contents
-    @mode = ext2lang(File.extname(@snippet))
+    @mode = ext2lang(File.extname(@snippet.file_name))
     render "codes/show_snippet"
   end
 

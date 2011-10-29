@@ -77,4 +77,27 @@ module CodesHelper
      tag << "</div>"
      tag
    end
+
+   def save_to_repository(id, file_name, content)
+    dir = Setting[:repository_root]
+    fullpath = dir + "/#{id}.txt"
+    git = Git.open(dir)
+    git.add(fullpath) if git.ls_files(fullpath).blank?
+    old_content = ""
+    open(fullpath) {|f| old_content = f.read} if File.exists?(fullpath)
+    unless old_content == content
+      open(fullpath, "w") {|f| f.write(content)}
+      git.commit_all("update #{file_name}")
+    end
+   end
+
+   def save_snippet(id, file_name, description, content)
+    @snippet = Snippet.where(:sha1_hash => id).first
+    @snippet.file_name = file_name
+    @snippet.description = description
+    @snippet.summary = get_lines(content, 3)
+    @snippet.updated_at = Time.now
+    @snippet.save
+   end
+
 end
