@@ -28,7 +28,7 @@ module CodesHelper
 
   def message_tag(level, message)
     tag = ''
-    tag << "<div>"
+    tag << "<div class='alert-message #{level.to_s}'>"
     tag << "<span class='label #{level.to_s}'>#{level}</span>"
     tag << "<span class='message'>#{message}</span>"
     tag << "</div>"
