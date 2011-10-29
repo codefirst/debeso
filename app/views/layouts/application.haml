@@ -4,7 +4,7 @@
     %meta{:content=>'text/thml; charset=utf-8', 'http-equiv'=>'content'}
     = stylesheet_link_tag 'bootstrap.min', 'codemirror', 'codemirror/theme/default', 'application'
     = yield_content :include
-    = javascript_include_tag 'jquery', 'codemirror', 'application'
+    = javascript_include_tag 'codemirror', 'application' 
     = favicon_tag 'favicon.ico'
     %title= [@title, "debeso"].compact.join(" | ")
 
@@ -15,8 +15,9 @@
         = link_to "debeso", url_for(:codes, :index), {:class => :brand}
         %ul.nav
           %li.active=link_to "Home", url_for(:codes, :index)
+          %li=link_to "Add Snippet", url_for(:codes, :edit)
           %li=link_to "About"#, url_for(:about, :index)
-        =form_tag url_for(:codes, :search), {:method => :get, :class => 'pull-right'} do |f|
+        =form_tag url_for(:codes, :search), {:method => :get, :class => 'pull-right'} do
           = text_field_tag 'search_key', :placeholder=>"Search", :value => @search_key
   .container
     .messages= message_tags

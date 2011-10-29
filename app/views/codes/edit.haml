@@ -18,10 +18,10 @@
         .row
           .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @content, :class => 'edit-text', :id => 'code')
         .row
-          .span10{:style => 'text-align:right'}= submit_tag 'save', {:class => 'btn primary'}
+          .span10{:style => 'text-align:right'}= submit_tag 'Update', {:class => 'btn primary'}
       .row
         .span15
-          %a{:href => url_for(:codes, :index)} Back to index
+          %a{:href => url_for(:codes, :index)} Back to Index
 
 = javascript_include_tag "codemirror/mode/" + @mode + "/" + @mode if @mode
 :javascript

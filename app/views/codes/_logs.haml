@@ -1,5 +1,5 @@
 .sidebar.well
-  %span.header Edit History
+  %span.header Edit Histories
   - form_tag url_for(:codes, :show_diff, :id => @id), :method => 'get' do
     .commit-log
       - @commits.each_with_index do |commit, index|
@@ -9,4 +9,4 @@
           .span1.commit-log-rev= link_to commit.sha[0..7], url_for(:codes, :show_snippet, :id => @id, :commit => commit.sha[0..7])
           .span2.commit-log-date= commit.date.strftime("%Y-%m-%d")
     .row{:style => 'text-align:right'}
-      = submit_tag 'diff', {:class => 'btn primary'}
+      = submit_tag 'Diff', {:class => 'btn primary'}
