@@ -14,11 +14,11 @@
       .container
         = link_to "debeso", url_for(:codes, :index), {:class => :brand}
         %ul.nav
-          %li.active=link_to "Home", url_for(:codes, :index)
-          %li=link_to "Add Snippet", url_for(:codes, :edit)
-          %li=link_to "About"#, url_for(:about, :index)
+          %li.active=link_to t(:home), url_for(:codes, :index)
+          %li=link_to t(:add_snippet), url_for(:codes, :edit)
+          %li=link_to t(:about)#, url_for(:about, :index)
         =form_tag url_for(:codes, :search), {:method => :get, :class => 'pull-right'} do
-          = text_field_tag 'search_key', :placeholder=>"Search", :value => @search_key
+          = text_field_tag 'search_key', :placeholder=>t(:search), :value => @search_key
   .container
     = message_tags
 

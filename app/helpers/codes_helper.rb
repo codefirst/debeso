@@ -3,6 +3,10 @@
 #Debeso.helpers do
 module CodesHelper
 
+  def t(str)
+    I18n.t str
+  end
+
   def get_lines(content, num)
     lines = content.rstrip.split(/\r?\n/)
     if lines.size < num

@@ -1,18 +1,18 @@
 .container
   .well
-    %h3 Recent Snippets
+    %h3= t(:recent_snippets)
     .row
       .span15{:style => 'text-align: right'}
-        %a{:href => url_for(:codes, :edit), :class => 'btn primary'} Add Snippet
+        %a{:href => url_for(:codes, :edit), :class => 'btn primary'}= t(:add_snippet)
     .row
       .span15
         %ul
           - @snippets.each do |snippet|
             %li.files
-              %span.name= link_to snippet.file_name.blank? ? "(no name)" : snippet.file_name,
+              %span.name= link_to snippet.file_name.blank? ? "(#{t(:no_name)})" : snippet.file_name,
               url_for(:codes, :edit, :id => snippet.sha1_hash)
               %span.sperator -
-              %span.updated_at= snippet.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+              %span.updated_at= snippet.updated_at.strftime(t(:date_format))
               - unless snippet.summary.blank?
                 .summary
                   %textarea.code{:name => 'code'}~ snippet.summary

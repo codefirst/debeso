@@ -5,23 +5,23 @@
     .content.well
       - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
         .row
-          .span2.text Name:
-          .span8= text_field_tag('file_name', :value => @snippet.file_name, :placeholder => 'Snippet name')
+          .span2.text= t(:name) + ":"
+          .span8= text_field_tag('file_name', :value => @snippet.file_name, :placeholder => t(:snippet_name))
         .row
-          .span2.text Description:
-          .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:80%', :placeholder => 'Description'})
+          .span2.text= t(:description) + ":"
+          .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:80%', :placeholder => t(:description)})
         - unless @snippet.updated_at.blank?
           .row
-            .span2.text Updated at:
+            .span2.text= t(:updated_at) + ":"
             .span8.text
-              = @snippet.updated_at.strftime("%Y-%m-%d %H:%M:%S")
+              = @snippet.updated_at.strftime(t(:date_format))
         .row
           .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @snippet.content, :class => 'edit-text', :id => 'code')
         .row
-          .span10{:style => 'text-align:right'}= submit_tag 'Update', {:class => 'btn primary'}
+          .span10{:style => 'text-align:right'}= submit_tag t(:update), {:class => 'btn primary'}
       .row
         .span15
-          %a{:href => url_for(:codes, :index)} Back to Index
+          %a{:href => url_for(:codes, :index)}= t(:back_to_index)
 
 = javascript_include_tag "codemirror/mode/" + @snippet.mode + "/" + @snippet.mode if @snippet.mode
 :javascript
