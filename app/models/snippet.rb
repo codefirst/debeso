@@ -14,13 +14,15 @@ class Snippet < ActiveRecord::Base
 
   def self.find_by_hash(hash_id)
     snippet = Snippet.where(:sha1_hash => hash_id).first
+    return snippet unless File.exist? Setting[:repository_root]
     git = Git.open(Setting[:repository_root])
     file = "#{Setting[:repository_root]}/#{hash_id}.txt"
-    open(file) {|f| content = f.read}
+    open(file) {|f| content = f.read} if File.exist? file
     snippet
   end
 
   def self.search_from_repository(repository_root, search_key)
+    return [{}, []] unless File.exist? repository_root
     git = Git.open(repository_root)
     results = git.grep(search_key, nil, :ignore_case => true)
     search_result = {}
@@ -44,19 +46,19 @@ class Snippet < ActiveRecord::Base
     snippets.where(query).project(snippets[:sha1_hash], snippets[:file_name]).to_a
   end
 
-
   def commits
-    commits = []
-    unless sha1_hash.blank?
-      git = Git.open(Setting[:repository_root])
-      commits = git.log.object("#{sha1_hash}.txt")
-    end
-    commits
+    return [] if sha1_hash.blank?
+    return [] unless repository_exist?
+    git = Git.open(Setting[:repository_root])
+    return [] unless file_exist?(sha1_hash)
+    git.log.object("#{sha1_hash}.txt")
   end
 
   def content(revision = 'HEAD')
     return '' if sha1_hash.blank?
+    return '' unless repository_exist?
     git = Git.open(Setting[:repository_root])
+    return '' unless file_exist?(sha1_hash)
     git.object(revision + ":" + sha1_hash + ".txt").contents
   end
 
@@ -69,8 +71,18 @@ class Snippet < ActiveRecord::Base
   end
 
   def diff(before_commit, after_commit)
+    return nil unless repository_exist?
     git = Git.open(Setting[:repository_root])
+    return nil unless file_exist?(sha1_hash)
     git.diff(before_commit, after_commit).path("#{sha1_hash}.txt")
+  end
+
+  def repository_exist?
+    File.exist? Setting[:repository_root]
+  end
+
+  def file_exist?(hash_id)
+    File.exist? "#{Setting[:repository_root]}/#{hash_id}.txt"
   end
 
   def ext2lang(ext)

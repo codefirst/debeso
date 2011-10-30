@@ -15,6 +15,7 @@ ja:
  update: "更新"
  diff: "差分"
  edit_histories: "更新履歴"
- revisions_are_not_selected: "Revisions are not selected"
+ revisions_are_not_selected: "リビジョンが選択されていません"
  revision: "リビジョン"
  no_name: "無名"
+ this_content_is_no_longer_available: "コンテンツが有効ではありません"

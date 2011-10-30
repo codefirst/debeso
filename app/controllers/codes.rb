@@ -23,6 +23,11 @@ Debeso.controllers :codes do
   get :edit, :with => :id do
     @id = params[:id]
     @snippet = get_snippet(@id)
+    if (not @snippet.repository_exist?) or (not @snippet.file_exist?(@id))
+      flash[:error] = t(:this_content_is_no_longer_available)
+      redirect url(:codes, :edit)
+      return
+    end
     render "codes/edit"
   end
 
@@ -53,7 +58,7 @@ Debeso.controllers :codes do
     @before_sha = params[:before]
     @after_sha = params[:after]
     if @before_sha.blank? or @after_sha.blank?
-      flash[:warning] = "revisions are not selected"
+      flash[:warning] = t(:revisions_are_not_selected)
       redirect url(:codes, :edit, :id => @id)
       return
     end
