@@ -20,4 +20,7 @@
 
 = javascript_include_tag "codemirror/mode/" + @snippet.mode + "/" + @snippet.mode if @snippet.mode
 :javascript
-    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true, readOnly : true});
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true
+                                                                             ,readOnly : true
+                                     #{@snippet.mime ? ",mode:'" + @snippet.mime + "'" : ""}
+                                                                          });

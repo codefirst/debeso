@@ -60,8 +60,12 @@ class Snippet < ActiveRecord::Base
     git.object(revision + ":" + sha1_hash + ".txt").contents
   end
 
-  def mode    
-    ext2lang(File.extname(file_name)) unless file_name.blank?
+  def mode
+    ext2lang(File.extname(file_name))[0] unless file_name.blank?
+  end
+
+  def mime
+    ext2lang(File.extname(file_name))[1] unless file_name.blank?
   end
 
   def diff(before_commit, after_commit)
@@ -72,45 +76,46 @@ class Snippet < ActiveRecord::Base
   def ext2lang(ext)
     return nil if ext.blank?
     ext.gsub!(".", "")
-    map = {'c' => 'clike',
-      'h' => 'clike',
-      'java' => 'clike',
-      'cpp' => 'clike',
-      'hpp' => 'clike',
-      'cs' => 'clike',
-      'clj' => 'clojure',
-      'coffee' => 'coffeescript',
-      'css' => 'css',
-      'diff' => 'diff',
-      'patch' => 'diff',
-      'groovy' => 'groovy',
-      'hs' => 'haskell',
-      'html' => 'html',
-      'htm' => 'html',
-      'js' => 'javascript',
-      'jinja2' => 'jinja2',
-      'lua' => 'lua',
-      'md' => 'markdown',
-      'markdown' => 'markdown',
-      'nt' => 'ntriples',
-      'pas' => 'pascal',
-      'pp' => 'pascal',
-      'p' => 'pascal',
-      'pl' => 'perl',
-      'php' => 'php',
-      'sql' => 'plsql',
-      'py' => 'python',
-      'r' => 'r',
-      'rst' => 'rst',
-      'rb' => 'ruby',
-      'scm' => 'scheme',
-      'st' => 'smalltalk',
-      'sparql' => 'sparql', # XXX
-      'tex' => 'stex',
-      'vm' => 'velocity',
-      'xml' => 'xmlpure',
-      'yml' => 'yaml',
-      'yaml' => 'yaml'}
-    map[ext.downcase]
+    map = {
+      'c'        => ['clike', 'text/x-csrc'],
+      'h'        => ['clike', 'text/x-csrc'],
+      'java'     => ['clike', 'text/x-java'],
+      'cpp'      => ['clike', 'text/x-c++src'],
+      'hpp'      => ['clike', 'text/x-c++src'],
+      'cs'       => ['clike', 'text/x-java'],
+      'clj'      => ['clojure', 'text/x-clojure'],
+      'coffee'   => ['coffeescript', 'text/x-coffeescript'],
+      'css'      => ['css', 'text/css'],
+      'diff'     => ['diff', 'text/x-diff'],
+      'patch'    => ['diff', 'text/x-diff'],
+      'groovy'   => ['groovy', 'text/x-groovy'],
+      'hs'       => ['haskell', 'text/x-haskell'],
+      'html'     => ['html', 'text/html'],
+      'htm'      => ['html', 'text/html'],
+      'js'       => ['javascript', 'text/javascript'],
+      'jinja2'   => ['jinja2', nil],
+      'lua'      => ['lua', 'text/x-lua'],
+      'md'       => ['markdown', 'text/x-markdown'],
+      'markdown' => ['markdown', 'text/x-markdown'],
+      'nt'       => ['ntriples', 'text/n-triples'],
+      'pas'      => ['pascal', 'text/x-pascal'],
+      'pp'       => ['pascal', 'text/x-pascal'],
+      'p'        => ['pascal', 'text/x-pascal'],
+      'pl'       => ['perl', 'text/x-perl'],
+      'php'      => ['php', 'application/x-httpd-php'],
+      'sql'      => ['plsql', 'text/x-plsql'],
+      'py'       => ['python', 'text/x-python'],
+      'r'        => ['r', 'text/x-rsrc'],
+      'rst'      => ['rst', 'text/x-rst'],
+      'rb'       => ['ruby', 'text/x-ruby'],
+      'scm'      => ['scheme', 'text/x-scheme'],
+      'st'       => ['smalltalk', 'text/x-stsrc'],
+      'sparql'   => ['sparql', 'application/x-sparql-query'], # XXX
+      'tex'      => ['stex', 'text/stex'],
+      'vm'       => ['velocity', 'text/velocity'],
+      'xml'      => ['xmlpure', 'application/xml'],
+      'yml'      => ['yaml', 'text/x-yaml'],
+      'yaml'     => ['yaml', 'text/x-yaml']}
+    map[ext.downcase] || [nil, nil]
   end
 end
