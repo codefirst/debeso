@@ -1,11 +1,1 @@
-%div
-  .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @snippet.content, :class => 'edit-text', :id => 'code')
-
-  = stylesheet_link_tag 'bootstrap.min', 'codemirror', 'codemirror/theme/default'
-  = javascript_include_tag 'codemirror'
-  = javascript_include_tag "codemirror/mode/" + @snippet.mode + "/" + @snippet.mode if @snippet.mode
-:javascript
-    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true
-                                                                             ,readOnly : true
-                                     #{@snippet.mime ? ",mode:'" + @snippet.mime + "'" : ""}
-                                                                          });
+%iframe{:src => url_for_with_host(:"api/v1/snippets", :show, :id => @id), :scrolling => 'no',  :frameborder => 0, :style => "width:620px;min-height:310px;overflow:hidden;border:none;"}
