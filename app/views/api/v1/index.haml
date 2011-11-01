@@ -1,1 +1,1 @@
-%iframe{:src => url_for(:"api/v1/snippets", :show, :id => @id), :scrolling => 'no',  :frameborder => 0, :style => "width:620px;min-height:310px;overflow:hidden;border:none;"}
+%iframe{:src => url_for_with_host(:"api/v1/snippets", :show, :id => @id), :scrolling => 'no',  :frameborder => 0, :style => "width:620px;min-height:310px;overflow:hidden;border:none;"}

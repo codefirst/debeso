@@ -89,4 +89,10 @@ module CodesHelper
     save_snippet(id, file_name, description, content)
   end
 
+  def url_for_with_host(controller, action, option = {})
+    root = request.scheme + '://' + request.host
+    root += ":#{request.port}" unless request.port == 80
+    root + url_for(controller, action, option)
+  end
+
 end
