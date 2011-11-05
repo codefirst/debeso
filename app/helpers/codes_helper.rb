@@ -1,5 +1,7 @@
 # Helper methods defined here can be accessed in any controller or view in the application
 
+require 'uuidtools'
+
 #Debeso.helpers do
 module CodesHelper
 
@@ -64,7 +66,7 @@ module CodesHelper
 
   def create_snippet
     git = Git.init(@repository_root)
-    id = Digest::SHA1.hexdigest(Time.now.to_s)
+    id = UUIDTools::UUID.random_create.to_s
     # add "id_" to avoid implicit binary translation
     id = "id_" + id
     filename = "#{id}.txt"
