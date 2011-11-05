@@ -6,7 +6,7 @@
       - form_tag url_for(:codes, :edit, :id => @id), :method => 'post' do
         .row
           .span2.text= t(:name) + ":"
-          .span8= text_field_tag('file_name', :value => @snippet.file_name, :placeholder => t(:snippet_name))
+          .span8= text_field_tag('file_name', :value => @snippet.file_name, :placeholder => t(:snippet_name), :required => :required)
         .row
           .span2.text= t(:description) + ":"
           .span8= text_field_tag('description', {:value => @snippet.description, :style => 'width:80%', :placeholder => t(:description)})
