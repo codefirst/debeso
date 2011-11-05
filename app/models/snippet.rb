@@ -63,13 +63,13 @@ class Snippet < ActiveRecord::Base
   end
 
   def mode
-    return nil unless file_name.blank?
+    return nil if file_name.blank?
     mode, mime = ext2lang(File.extname(file_name))
     mode
   end
 
   def mime
-    return nil unless file_name.blank?
+    return nil if file_name.blank?
     mode, mime = ext2lang(File.extname(file_name))
     mime
   end
@@ -90,7 +90,7 @@ class Snippet < ActiveRecord::Base
   end
 
   def ext2lang(ext)
-    return nil if ext.blank?
+    return [nil, nil] if ext.blank?
     ext.gsub!(".", "")
     map = {
       'c'        => ['clike', 'text/x-csrc'],

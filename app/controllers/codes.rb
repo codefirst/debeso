@@ -25,6 +25,7 @@ Debeso.controllers :codes do
     @snippet = get_snippet(@id)
     if (not @snippet.repository_exist?) or (not @snippet.file_exist?(@id))
       flash[:error] = t(:this_content_is_no_longer_available)
+      @snippet.destroy
       redirect url(:codes, :edit)
       return
     end
