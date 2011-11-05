@@ -23,13 +23,14 @@
         .span15
           %a{:href => url_for(:codes, :index)}= t(:back_to_index)
 
-    .content.well
-      %h4 API
-      %dl
-        %dt JSON API URL
-        %dd= link_to url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".json", url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".json"
-        %dt Embedded HTML URL
-        %dd= link_to url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".html", url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".html"
+    - if @id
+      .content.well
+        %h4 API
+        %dl
+          %dt JSON API URL
+          %dd= link_to url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".json", url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".json"
+          %dt Embedded HTML URL
+          %dd= link_to url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".html", url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".html"
 
 = javascript_include_tag "codemirror/mode/" + @snippet.mode + "/" + @snippet.mode if @snippet.mode
 :javascript

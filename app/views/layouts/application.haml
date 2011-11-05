@@ -2,7 +2,9 @@
 %html
   %head
     %meta{:content=>'text/thml; charset=utf-8', 'http-equiv'=>'content'}
-    = stylesheet_link_tag 'bootstrap.min', 'codemirror', 'codemirror/theme/default', 'application'
+    = stylesheet_link_tag 'bootstrap.min'
+    = stylesheet_link_tag 'codemirror', 'codemirror/theme/default', 'codemirror/mode/diff/diff', 'codemirror/mode/markdown/markdown', 'codemirror/mode/rst/rst'
+    = stylesheet_link_tag 'application'
     = yield_content :include
     = javascript_include_tag 'codemirror', 'application'
     = favicon_tag 'favicon.ico'
