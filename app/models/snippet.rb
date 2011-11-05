@@ -63,11 +63,15 @@ class Snippet < ActiveRecord::Base
   end
 
   def mode
-    ext2lang(File.extname(file_name))[0] unless file_name.blank?
+    return nil unless file_name.blank?
+    mode, mime = ext2lang(File.extname(file_name))
+    mode
   end
 
   def mime
-    ext2lang(File.extname(file_name))[1] unless file_name.blank?
+    return nil unless file_name.blank?
+    mode, mime = ext2lang(File.extname(file_name))
+    mime
   end
 
   def diff(before_commit, after_commit)
