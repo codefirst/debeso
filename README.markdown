@@ -9,9 +9,10 @@ Features:
  * Version Control
  * Search
  * Syntax Highlights
+ * API
 
 Authors
-=======================
+-----------------------
 
  * @suer
  * @mallowlabs
@@ -22,7 +23,8 @@ Requirements
 -----------------------
  * Ruby 1.8+
  * RubyGems 1.4.2+
- * Bundler 10.0.15+
+ * Bundler 1.0.15+
+ * SQLite 3.6.18+
  * Git 1.4.7.1+
 
 Installation
