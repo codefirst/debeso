@@ -1,8 +1,5 @@
 # Helper methods defined here can be accessed in any controller or view in the application
 
-require 'uuidtools'
-
-#Debeso.helpers do
 module CodesHelper
 
   def t(str)
@@ -43,7 +40,8 @@ module CodesHelper
 
   def save_to_repository(id, file_name, content)
     dir = Setting[:repository_root]
-    fullpath = dir + "/#{id}.txt"
+    fullpath = "#{dir}/#{id}.txt"
+    git = Git.init(@repository_root)
     git = Git.open(dir)
     git.add(fullpath) if git.ls_files(fullpath).blank?
     old_content = ""
@@ -55,7 +53,7 @@ module CodesHelper
   end
 
   def save_snippet(id, file_name, description, content)
-    snippet = Snippet.find_by_hash(id)
+    snippet = Snippet.find(id)
     snippet.file_name = file_name
     snippet.description = description
     snippet.summary = get_lines(content, 3)
@@ -65,22 +63,18 @@ module CodesHelper
   end
 
   def create_snippet
-    git = Git.init(@repository_root)
-    id = UUIDTools::UUID.random_create.to_s
-    # add "id_" to avoid implicit binary translation
-    id = "id_" + id
-    filename = "#{id}.txt"
+    snippet = Snippet.new(:created_at => Time.now, :updated_at => Time.now)
+    snippet.save
+    filename = "#{snippet.id}.txt"
     fullpath = "#{@repository_root}/#{filename}"
     open(fullpath, "w") {}
-    snippet = Snippet.new(:sha1_hash => id, :created_at => Time.now, :updated_at => Time.now)
-    snippet.save
-    id
+    snippet.id
   end
 
   def get_snippet(id)
     snippet = nil
     unless id.blank?
-      snippet = Snippet.find_by_hash(id)
+      snippet = Snippet.find(id)
     end
     snippet ||= Snippet.new
     snippet

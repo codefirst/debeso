@@ -1,4 +1,3 @@
-require 'digest/sha1'
 require 'git'
 Debeso.controllers :codes do
 
@@ -63,7 +62,7 @@ Debeso.controllers :codes do
       redirect url(:codes, :edit, :id => @id)
       return
     end
-    @snippet = Snippet.find_by_hash(@id)
+    @snippet = Snippet.find(@id)
     render "codes/show_diff"
   end
 
@@ -82,7 +81,7 @@ Debeso.controllers :codes do
   get :show_snippet, :with => [:id, :commit] do
     @id = params[:id]
     @commit = params[:commit]
-    @snippet = Snippet.find_by_hash(@id)
+    @snippet = Snippet.find(@id)
     render "codes/show_snippet"
   end
 end

@@ -13,7 +13,7 @@
         .span2.text= t(:description) + ":"
         .span8.text= @snippet.description
       .row
-        .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @snippet.content, :class => 'edit-text', :id => 'code')
+        .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @snippet.content(@commit), :class => 'edit-text', :id => 'code')
       .row
         .span15
           %a{:href => url_for(:codes, :edit, :id => @id)}= t(:back_to_edit)

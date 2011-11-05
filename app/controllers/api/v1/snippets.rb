@@ -6,7 +6,7 @@ Debeso.controllers :"api/v1/snippets" do
 
   get :index, :with => :id, :provides => [:json, :html] do
     @id = params[:id]
-    @snippet = Snippet.where(:sha1_hash => @id).first
+    @snippet = Snippet.find(@id)
     open("#{@repository_root}/#{@id}.txt") {|f| @snippet.content = f.read}
     if params[:format] == 'html'
       render 'api/v1/index', :layout => false
@@ -21,7 +21,7 @@ Debeso.controllers :"api/v1/snippets" do
 
   get :show, :with => :id, :provides => :html do
     @id = params[:id]
-    @snippet = Snippet.find_by_hash(@id)
+    @snippet = Snippet.find(@id)
     open("#{@repository_root}/#{@id}.txt") {|f| @snippet.content = f.read}
     render 'api/v1/show', :layout => false
   end

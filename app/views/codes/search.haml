@@ -5,10 +5,10 @@
         %ul
           - @snippets.each do |snippet|
             %li
-              = link_to snippet.file_name, url_for(:codes, :edit, :id => snippet.sha1_hash)
-              - unless @search_result[snippet.sha1_hash].nil?
+              = link_to snippet.file_name, url_for(:codes, :edit, :id => snippet.id)
+              - unless @search_result[snippet.id].nil?
                 .summary
-                  %textarea.code{:name => 'code'}~ @search_result[snippet.sha1_hash].sort[0..2].map {|k,v| v.chomp}.join("\n")
+                  %textarea.code{:name => 'code'}~ @search_result[snippet.id].sort[0..2].map {|k,v| v.chomp}.join("\n")
 
 :javascript
   var textAreas = document.getElementsByClassName("code");

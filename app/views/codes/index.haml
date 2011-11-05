@@ -10,7 +10,7 @@
           - @snippets.each do |snippet|
             %li.files
               %span.name= link_to snippet.file_name.blank? ? "(#{t(:no_name)})" : snippet.file_name,
-              url_for(:codes, :edit, :id => snippet.sha1_hash)
+              url_for(:codes, :edit, :id => snippet.id)
               %span.sperator -
               %span.updated_at= snippet.updated_at.strftime(t(:date_format))
               - unless snippet.summary.blank?
