@@ -12,3 +12,4 @@ config/setting.yml
 db/*.db
 db/schema.rb
 *.swp
+.#*

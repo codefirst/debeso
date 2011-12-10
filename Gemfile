@@ -20,6 +20,7 @@ gem 'rspec', :group => "test"
 gem 'rack-test', :require => "rack/test", :group => "test"
 #gem 'rcov', :group => "test"
 gem 'ci_reporter', :group => "test"
+gem 'guard-rspec', :group => "test"
 
 # Padrino Stable Gem
 gem 'padrino', '0.10.5'
