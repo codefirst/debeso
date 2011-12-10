@@ -84,4 +84,12 @@ Debeso.controllers :codes do
     @snippet = Snippet.find(@id)
     render "codes/show_snippet"
   end
+
+  post :delete, :with => [:id] do
+    id = params[:id]
+    snippet = Snippet.find(id)
+    snippet.delete_file(id)
+    flash[:info] = "delete a snippet successful"
+    redirect url(:codes, :index)
+  end
 end

@@ -92,7 +92,6 @@ GEM
     tzinfo (0.3.30)
     url_mount (0.2.1)
       rack
-    uuidtools (2.1.2)
 
 PLATFORMS
   ruby
@@ -110,4 +109,3 @@ DEPENDENCIES
   sass
   sinatra-flash
   sqlite3
-  uuidtools

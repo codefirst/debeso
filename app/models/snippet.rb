@@ -80,6 +80,13 @@ class Snippet < ActiveRecord::Base
     File.exist? "#{Setting[:repository_root]}/#{id}.txt"
   end
 
+  def delete_file(id)
+    File.delete "#{Setting[:repository_root]}/#{id}.txt" if file_exist?(id)
+    git = Git.open(Setting[:repository_root])
+    git.commit_all("delete #{id}.txt")
+    delete
+  end
+
   def ext2lang(ext)
     return [nil, nil] if ext.blank?
     ext.gsub!(".", "")

@@ -23,6 +23,10 @@
         .span15
           %a{:href => url_for(:codes, :index)}= t(:back_to_index)
 
+      - unless @id.nil?
+        - form_tag url_for(:codes, :delete, :id => @id), :method => 'post' do
+          .span2=submit_tag t(:delete), {:class => 'btn primary'}
+
     - if @id
       .content.well
         %h4 API

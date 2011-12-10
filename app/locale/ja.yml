@@ -14,6 +14,7 @@ ja:
  back_to_snippet: "スニペットのページに戻る"
  update: "更新"
  diff: "差分"
+ delete: "削除"
  edit_histories: "更新履歴"
  revisions_are_not_selected: "リビジョンが選択されていません"
  revision: "リビジョン"
