@@ -48,6 +48,10 @@ Type below command:
     $ bundle exec padrino rake ar:migrate -e test
     $ bundle exec padrino rake spec
 
+if you prefer to auto testing:
+
+    $ bundle exec guard start
+
 Special Thanks
 -----------------------
 
