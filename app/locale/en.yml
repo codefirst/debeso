@@ -14,7 +14,7 @@ en:
  back_to_snippet: "Back to Snippet"
  update: "Update"
  diff: "Diff"
- delete: "Delete"
+ delete: "Delete this snippet"
  edit_histories: "Edit histories"
  revisions_are_not_selected: "Revisions are not selected"
  revision: "Revision"

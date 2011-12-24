@@ -8,6 +8,10 @@ h1 {
   margin-bottom: 5px;
 }
 
+form {
+  margin-bottom: 0px;
+}
+
 .messages {
   margin: 10px;
 }

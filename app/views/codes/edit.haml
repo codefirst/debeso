@@ -23,10 +23,6 @@
         .span15
           %a{:href => url_for(:codes, :index)}= t(:back_to_index)
 
-      - unless @id.nil?
-        - form_tag url_for(:codes, :delete, :id => @id), :method => 'post' do
-          .span2=submit_tag t(:delete), {:class => 'btn primary'}
-
     - if @id
       .content.well
         %h4 API
@@ -35,6 +31,10 @@
           %dd= link_to url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".json", url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".json"
           %dt Embedded HTML URL
           %dd= link_to url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".html", url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".html"
+
+      .content.well
+        - form_tag url_for(:codes, :delete, :id => @id), :method => 'post' do
+          = submit_tag t(:delete), {:class => 'btn danger'}
 
 = javascript_include_tag "codemirror/mode/" + @snippet.mode + "/" + @snippet.mode if @snippet.mode
 :javascript
