@@ -67,6 +67,8 @@ module CodesHelper
     snippet.save
     filename = "#{snippet.id}.txt"
     fullpath = "#{@repository_root}/#{filename}"
+    git = Git.init(@repository_root)
+    git = Git.open(@repository_root)
     open(fullpath, "w") {}
     snippet.id
   end
