@@ -21,3 +21,5 @@ ja:
  no_name: "無名"
  this_content_is_no_longer_available: "コンテンツが有効ではありません"
  about_debeso: "debeso について"
+ delete_a_snippet_successful: "スニペットの削除に成功しました"
+

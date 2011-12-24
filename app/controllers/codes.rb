@@ -89,7 +89,7 @@ Debeso.controllers :codes do
     id = params[:id]
     snippet = Snippet.find(id)
     snippet.delete_file(id)
-    flash[:info] = "delete a snippet successful"
+    flash[:info] = t(:delete_a_snippet_successful)
     redirect url(:codes, :index)
   end
 end
