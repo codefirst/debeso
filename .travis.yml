@@ -1,0 +1,5 @@
+rvm:
+  - 1.8.7
+  - 1.9.2
+env:
+  - BUNDLE_GEMFILE=spec/spec.rake
