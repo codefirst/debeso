@@ -3,6 +3,8 @@ debeso
 
 debeso is an application to manage code snippets.
 
+[![Build Status](http://travis-ci.org/codefirst/debeso.png)](http://travis-ci.org/codefirst/debeso)
+
 Features:
 
  * Easy Installtion
