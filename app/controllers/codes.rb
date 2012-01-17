@@ -49,6 +49,11 @@ Debeso.controllers :codes do
     redirect url(:codes, :edit, :id => @id)
   end
 
+  get :raw, :with => :id do
+    content_type 'text/plain'
+    get_snippet(params[:id]).content
+  end
+
   get :show_diff do
     # fake action for null id param
   end
