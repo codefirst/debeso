@@ -58,7 +58,7 @@ Debeso.controllers :codes do
     content_type 'text/plain'
     snippet = get_snippet(params[:id])
     attachment snippet.file_name
-    get_snippet(params[:id]).content
+    snippet.content
   end
 
   get :show_diff do
