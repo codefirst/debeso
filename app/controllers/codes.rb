@@ -49,11 +49,6 @@ Debeso.controllers :codes do
     redirect url(:codes, :edit, :id => @id)
   end
 
-  get :raw, :with => :id do
-    content_type 'text/plain'
-    get_snippet(params[:id]).content
-  end
-
   get :download, :with => :id do
     content_type 'text/plain'
     snippet = get_snippet(params[:id])

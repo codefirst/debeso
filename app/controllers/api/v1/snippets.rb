@@ -8,14 +8,17 @@ Debeso.controllers :"api/v1/snippets" do
     @id = params[:id]
     @snippet = Snippet.find(@id)
     open("#{@repository_root}/#{@id}.txt") {|f| @snippet.content = f.read}
-    if params[:format] == 'html'
-      render 'api/v1/index', :layout => false
-    else params[:format] == 'json'
-      unless @snippet.nil?
+    unless @snippet.nil?
+      if params[:format] == 'html'
+        render 'api/v1/index', :layout => false
+      elsif params[:format] == 'json'
         @snippet.to_hash.to_json
       else
-        {:message => "snippet #{@id} not found"}.to_json
+        content_type 'text/plain'
+        get_snippet(params[:id]).content
       end
+    else
+      {:message => "snippet #{@id} not found"}.to_json
     end
   end
 

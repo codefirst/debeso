@@ -18,19 +18,19 @@
         .row
           .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @snippet.content, :class => 'edit-text', :id => 'code')
         .row
-          .span5
-            - if @id
-              %a{:href => url_for(:codes, :raw, :id => @id)}= t(:download_content)
-            &nbsp;
-          .span5{:style => 'text-align:right'}= submit_tag t(:update), {:class => 'btn primary'}
+          .span10{:style => 'text-align:right'}= submit_tag t(:update), {:class => 'btn primary'}
       .row
         .span15
           %a{:href => url_for(:codes, :index)}= t(:back_to_index)
 
     - if @id
       .content.well
+        .download
+          %a{:href => url_for(:codes, :download, :id => @id), :class => 'btm primary'}= t(:download_content)
         %h4 API
         %dl
+          %dt Raw URL
+          %dd= link_to url_for_with_host(:"api/v1/snippets", :index, {:id => @id}), url_for_with_host(:"api/v1/snippets", :index, {:id => @id})
           %dt JSON API URL
           %dd= link_to url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".json", url_for_with_host(:"api/v1/snippets", :index, {:id => @id}) + ".json"
           %dt Embedded HTML URL
