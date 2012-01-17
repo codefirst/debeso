@@ -54,6 +54,13 @@ Debeso.controllers :codes do
     get_snippet(params[:id]).content
   end
 
+  get :download, :with => :id do
+    content_type 'text/plain'
+    snippet = get_snippet(params[:id])
+    attachment snippet.file_name
+    get_snippet(params[:id]).content
+  end
+
   get :show_diff do
     # fake action for null id param
   end
