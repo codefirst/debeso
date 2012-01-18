@@ -1,0 +1,26 @@
+.container
+ .container-fluid
+   = partial("codes/logs")
+
+   .content.well
+     %h3
+       %span= @snippet.file_name
+       %span{:style => 'font-size: 0.8em;color: #ccc;'}=" (#{@commit})"
+     .row
+       .span2.text= t(:updated_at) + ":"
+       .span8.text= @snippet.updated_at.strftime(t(:date_format))
+     .row
+       .span2.text= t(:description) + ":"
+       .span8.text= @snippet.description
+     .row
+       .span10{:style=>'margin-top:10px;'}~ text_area_tag('content', :value => @snippet.content(@commit), :class => 'edit-text', :id => 'code')
+     .row
+       .span15
+         %a{:href => url_for(:codes, :edit, :id => @id)}= t(:back_to_edit)
+
+= javascript_include_tag "codemirror/mode/" + @snippet.mode + "/" + @snippet.mode if @snippet.mode
+:javascript
+   var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true
+                                                                            ,readOnly : true
+                                    #{@snippet.mime ? ",mode:'" + @snippet.mime + "'" : ""}
+                                                                         });
