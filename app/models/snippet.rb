@@ -104,8 +104,8 @@ class Snippet < ActiveRecord::Base
       'patch'    => ['diff', 'text/x-diff'],
       'groovy'   => ['groovy', 'text/x-groovy'],
       'hs'       => ['haskell', 'text/x-haskell'],
-      'html'     => ['html', 'text/html'],
-      'htm'      => ['html', 'text/html'],
+      'html'     => ['htmlmixed', 'text/html'],
+      'htm'      => ['htmlmixed', 'text/html'],
       'js'       => ['javascript', 'text/javascript'],
       'jinja2'   => ['jinja2', nil],
       'lua'      => ['lua', 'text/x-lua'],
@@ -127,7 +127,7 @@ class Snippet < ActiveRecord::Base
       'sparql'   => ['sparql', 'application/x-sparql-query'], # XXX
       'tex'      => ['stex', 'text/stex'],
       'vm'       => ['velocity', 'text/velocity'],
-      'xml'      => ['xmlpure', 'application/xml'],
+      'xml'      => ['xml', 'application/xml'],
       'yml'      => ['yaml', 'text/x-yaml'],
       'yaml'     => ['yaml', 'text/x-yaml']}
     map[ext.downcase] || [nil, nil]
