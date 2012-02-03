@@ -2,7 +2,8 @@
 
 = stylesheet_link_tag 'bootstrap.min', 'codemirror', 'codemirror/theme/default'
 = javascript_include_tag 'codemirror'
-= javascript_include_tag "codemirror/mode/" + @snippet.mode + "/" + @snippet.mode if @snippet.mode
+- @snippet.mode.each do |mode|
+  = javascript_include_tag "codemirror/mode/" + mode + "/" + mode
 :javascript
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true
                                                                              ,readOnly : true

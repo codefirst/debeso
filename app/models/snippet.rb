@@ -54,8 +54,10 @@ class Snippet < ActiveRecord::Base
   end
 
   def mode
-    return nil if file_name.blank?
+    return [] if file_name.blank?
     mode, mime = ext2lang(File.extname(file_name))
+    mode = [] unless mode
+    mode = [mode] unless mode.class.name == 'Array'
     mode
   end
 
@@ -104,8 +106,8 @@ class Snippet < ActiveRecord::Base
       'patch'    => ['diff', 'text/x-diff'],
       'groovy'   => ['groovy', 'text/x-groovy'],
       'hs'       => ['haskell', 'text/x-haskell'],
-      'html'     => ['htmlmixed', 'text/html'],
-      'htm'      => ['htmlmixed', 'text/html'],
+      'html'     => [['xml', 'javascript', 'css', 'htmlmixed'], 'text/html'],
+      'htm'      => [['xml', 'javascript', 'css', 'htmlmixed'], 'text/html'],
       'js'       => ['javascript', 'text/javascript'],
       'jinja2'   => ['jinja2', nil],
       'lua'      => ['lua', 'text/x-lua'],
@@ -116,7 +118,7 @@ class Snippet < ActiveRecord::Base
       'pp'       => ['pascal', 'text/x-pascal'],
       'p'        => ['pascal', 'text/x-pascal'],
       'pl'       => ['perl', 'text/x-perl'],
-      'php'      => ['php', 'application/x-httpd-php'],
+      'php'      => [['xml', 'javascript', 'css', 'clike', 'php'], 'application/x-httpd-php'],
       'sql'      => ['plsql', 'text/x-plsql'],
       'py'       => ['python', 'text/x-python'],
       'r'        => ['r', 'text/x-rsrc'],

@@ -19,7 +19,7 @@ describe "Snippet Model" do
 
   subject { @snippet }
   its(:mime) { should == 'text/x-ruby' }
-  its(:mode) { should == 'ruby' }
+  its(:mode) { should == ['ruby'] }
 
   context "use repository" do
     before do
@@ -74,5 +74,6 @@ describe "Snippet Model" do
       subject { @snippet.ext2lang(".rb") }
       it { should == ["ruby", "text/x-ruby"] }
     end
+
   end
 end

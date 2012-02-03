@@ -40,7 +40,8 @@
         - form_tag url_for(:codes, :delete, :id => @id), :method => 'post' do
           = submit_tag t(:delete), {:class => 'btn danger', :onclick => "return confirm('Are you sure?')"}
 
-= javascript_include_tag "codemirror/mode/" + @snippet.mode + "/" + @snippet.mode if @snippet.mode
+- @snippet.mode.each do |mode|
+  = javascript_include_tag "codemirror/mode/" + mode + "/" + mode
 :javascript
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true
                                      #{@snippet.mime ? ",mode:'" + @snippet.mime + "'" : ""}

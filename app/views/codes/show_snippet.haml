@@ -18,7 +18,8 @@
         .span15
           %a{:href => url_for(:codes, :edit, :id => @id)}= t(:back_to_edit)
 
-= javascript_include_tag "codemirror/mode/" + @snippet.mode + "/" + @snippet.mode if @snippet.mode
+- @snippet.mode.each do |mode|
+  = javascript_include_tag "codemirror/mode/" + mode + "/" + mode
 :javascript
   var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers : true
                                                                             ,readOnly : true
