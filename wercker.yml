@@ -3,7 +3,7 @@ services:
   - wercker/postgresql
 build:
     steps:
-        - bundle-install
+       - bundle-install
        - script:
             name: echo ruby information
             code: |
