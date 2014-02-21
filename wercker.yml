@@ -1,0 +1,27 @@
+box: wercker/rvm
+services:
+  - wercker/postgresql
+build:
+    steps:
+        - bundle-install
+       - script:
+            name: echo ruby information
+            code: |
+                echo "ruby version $(ruby --version) running"
+                echo "from location $(which ruby)"
+                echo -p "gem list: $(gem list)"
+        - script:
+            name: migrate
+            code: bundle exec padrino rake ar:migrate:redo -e test
+        - script:
+            name: rspec
+            code: bundle exec padrino rake spec
+    after-steps:
+        - mzp/http-notify:
+            url: $DASHBOZU_URL
+deploy:
+    steps:
+        - heroku-deploy
+        - script:
+            name: Update database
+            code: heroku run padrino rake ar:migrate --app $APP_NAME
