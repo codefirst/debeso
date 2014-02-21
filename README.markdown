@@ -4,6 +4,7 @@ debeso
 debeso is an application to manage code snippets.
 
 [![Build Status](https://secure.travis-ci.org/codefirst/debeso.png)](http://travis-ci.org/codefirst/debeso)
+[![wercker status](https://app.wercker.com/status/258544b3ecebe46e2c1bc92d54b0d2c1/s/ "wercker status")](https://app.wercker.com/project/bykey/258544b3ecebe46e2c1bc92d54b0d2c1)
 
 Features:
 
