@@ -1,10 +1,8 @@
 box: wercker/rvm
-services:
-  - wercker/postgresql
 build:
     steps:
-       - bundle-install
-       - script:
+        - bundle-install
+        - script:
             name: echo ruby information
             code: |
                 echo "ruby version $(ruby --version) running"
