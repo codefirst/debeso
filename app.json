@@ -1,0 +1,20 @@
+{
+  "name": "debeso",
+  "description": "A snippet stock application for developers",
+  "repository": "https://github.com/codefirst/debeso/",
+  "logo": "https://raw.githubusercontent.com/codefirst/debeso/master/public/images/debeso.png",
+  "env": {
+    "TZ": {
+      "description": "Set TimeZone. (e.g Asia/Tokyo)",
+      "value": "UTC",
+      "required": "false"
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "scripts": {
+    "postdeploy": "bundle exec padrino rake ar:migrate -e production"
+  }
+}
+
