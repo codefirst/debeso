@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 # Server requirements (defaults to WEBrick)
 # gem 'thin'
@@ -35,6 +35,7 @@ gem 'padrino', '0.10.5'
 
 gem 'git'
 gem 'multi_json'
+gem 'thin'
 
 group :development, :test do
   gem 'sqlite3'
