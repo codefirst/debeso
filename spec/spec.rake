@@ -1,6 +1,5 @@
 require 'rspec/core/rake_task'
 require 'rake'
-require 'ci/reporter/rake/rspec'
 
 spec_tasks = Dir['spec/*/'].map { |d| File.basename(d) }
 

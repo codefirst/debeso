@@ -13,16 +13,14 @@ gem 'sass'
 gem 'haml'
 
 gem 'activerecord', :require => "active_record"
-gem 'sqlite3'
 
 # Test requirements
-gem 'rspec', :group => "test"
-gem 'rack-test', :require => "rack/test", :group => "test"
-#gem 'rcov', :group => "test"
-gem 'ci_reporter', :group => "test"
-gem 'guard-rspec', :group => "test"
-gem 'guard-spork', :group => "test"
-
+group :test do
+  gem 'rspec'
+  gem 'rack-test', :require => "rack/test"
+  gem 'guard-rspec'
+  gem 'guard-spork'
+end
 
 # Padrino Stable Gem
 gem 'padrino', '0.10.5'
@@ -37,3 +35,11 @@ gem 'padrino', '0.10.5'
 
 gem 'git'
 gem 'multi_json'
+
+group :development, :test do
+  gem 'sqlite3'
+end
+group :production do
+  gem 'pg'
+end
+
