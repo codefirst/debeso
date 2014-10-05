@@ -15,8 +15,8 @@ gem 'haml'
 gem 'activerecord', :require => "active_record"
 
 # Test requirements
+gem 'rspec'
 group :test do
-  gem 'rspec'
   gem 'rack-test', :require => "rack/test"
   gem 'guard-rspec'
   gem 'guard-spork'
