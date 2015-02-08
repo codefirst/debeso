@@ -1,8 +1,6 @@
 box: wercker/rvm
 build:
     steps:
-        - rvm-use:
-            version: 1.9.3
         - bundle-install
         - script:
             name: echo ruby information
