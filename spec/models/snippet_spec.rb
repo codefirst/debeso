@@ -48,6 +48,7 @@ describe "Snippet Model" do
         @log = mock()
         @tree = mock()
         @diff = mock()
+        @log.stub(:path) { [@commit1, @commit2] }
         @log.stub(:object) { [@commit1, @commit2] }
         @git.stub(:log) { @log }
         @tree.stub(:path) { @diff }
