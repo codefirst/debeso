@@ -42,7 +42,7 @@ class Snippet < ActiveRecord::Base
     return [] unless repository_exist?
     git = Git.open(Setting[:repository_root])
     return [] unless file_exist?(id)
-    git.log.object("#{id}.txt")
+    git.log.path("#{id}.txt")
   end
 
   def content(revision = 'HEAD')
