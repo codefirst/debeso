@@ -43,6 +43,8 @@ module CodesHelper
     fullpath = "#{dir}/#{id}.txt"
     git = Git.init(@repository_root)
     git = Git.open(dir)
+    git.config('user.name', 'debeso')
+    git.config('user.email', 'debeso@codefirst.org')
     git.add(fullpath) if git.ls_files(fullpath).blank?
     old_content = ""
     open(fullpath) {|f| old_content = f.read} if File.exists?(fullpath)
