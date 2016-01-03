@@ -24,7 +24,7 @@ Authors
  * @suer
  * @mallowlabs
 
- We are [codefirst.org](https://codefirst.org)!
+ We are [codefirst.org](https://www.codefirst.org)!
 
 Requirements
 -----------------------
