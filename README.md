@@ -28,7 +28,7 @@ Authors
 
 Requirements
 -----------------------
- * Ruby 1.8+
+ * Ruby 1.9.3+
  * RubyGems 1.4.2+
  * Bundler 1.0.15+
  * SQLite 3.6.18+

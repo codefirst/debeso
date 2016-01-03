@@ -9,8 +9,8 @@ describe "Snippet Model" do
       s.updated_at = '2012/1/15'
     end
 
-    @git = mock()
-    @blob = mock()
+    @git = double()
+    @blob = double()
     @git.stub(:object) { @blob }
     @blob.stub(:contents) { "print 'hoge'" }
     Git.stub(:open) { @git }
@@ -43,11 +43,11 @@ describe "Snippet Model" do
 
     context "get commits" do
       before do
-        @commit1 = mock()
-        @commit2 = mock()
-        @log = mock()
-        @tree = mock()
-        @diff = mock()
+        @commit1 = double()
+        @commit2 = double()
+        @log = double()
+        @tree = double()
+        @diff = double()
         @log.stub(:path) { [@commit1, @commit2] }
         @log.stub(:object) { [@commit1, @commit2] }
         @git.stub(:log) { @log }
@@ -68,7 +68,7 @@ describe "Snippet Model" do
         @snippet.stub(:delete) { true }
       end
       subject { @snippet.delete_file(1) }
-      it { should be_true }
+      it { should be_truthy }
     end
 
     context "get language from extension" do

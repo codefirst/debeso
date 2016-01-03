@@ -6,6 +6,6 @@ describe "CodesController" do
   end
 
   it "be true" do
-    true.should be_true
+    true.should be_truthy
   end
 end

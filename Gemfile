@@ -16,6 +16,7 @@ gem 'activerecord', :require => "active_record"
 
 # Test requirements
 gem 'rspec'
+gem 'rspec-its'
 group :test do
   gem 'rack-test', :require => "rack/test"
   gem 'guard-rspec'
