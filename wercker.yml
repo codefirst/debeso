@@ -17,10 +17,4 @@ build:
     after-steps:
         - mzp/http-notify:
             url: $DASHBOZU_URL
-deploy:
-    steps:
-        - heroku-deploy:
-            install-toolbelt: true
-        - script:
-            name: Update database
-            code: heroku run padrino rake ar:migrate --app $APP_NAME
+
